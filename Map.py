@@ -1,4 +1,6 @@
 import pygame
+import Object
+from Game_Config import *
 
 BITMAP = []
 file = open("./data/maps/level2.txt", "r")
@@ -11,8 +13,6 @@ file.close()
 def draw():
     for i in range(len(BITMAP)):
         for j in range(len(BITMAP[i])):
-            if BITMAP[i][j] != 0 and BITMAP[i][j] != 10:
-                objects.append(pygame.Rect(GAME_AREA.x + j *
-                               50, GAME_AREA.y + i*50, 50, 50))
-            WIN.blit(OBJECT_IMAGES[BITMAP[i][j]],
-                     (GAME_AREA.x + j*50, GAME_AREA.y + i*50))
+            if BITMAP[i][j] != 0:
+                objects[(i, j)] = Object.Object(j, i)
+                objects[(i, j)].draw()
