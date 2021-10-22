@@ -3,10 +3,10 @@ from pygame import key
 from pygame import math
 from Game_Config import *
 
+import Object
 import Colors
 import Bomb
 import Map
-import Object
 import Player
 import math
 
@@ -49,20 +49,18 @@ def main():
                         player1.bombCapacity -= 1
                         BombsList.append(
                             Bomb.Bomb(player1.box.x-25, player1.box.y-25, pygame.time.get_ticks()))
-                        # BombsList[-1].redrawBomb()
                         player1.set_previous_pos()
                         Map.BITMAP[BombsList[-1].y][BombsList[-1].x] = 10
+                        objects[(BombsList[-1].y, BombsList[-1].x)
+                                ] = Object.Object(BombsList[-1].x, BombsList[-1].y)
 
         if(vuadatbomb and distant() > 49):
             if len(BombsList) > 0:
-                # print(BombsList[-1].y, BombsList[-1].x)
-                if objects.get((BombsList[-1].y, BombsList[-1].x)):
-                    objects[(BombsList[-1].y, BombsList[-1].x)
-                            ].coTheDiQua = False
+                objects[(BombsList[-1].y, BombsList[-1].x)].coTheDiQua = False
             vuadatbomb = False
         if len(BombsList) > 0 and pygame.time.get_ticks() - BombsList[0].set_time > 3 * 1000:
             Map.BITMAP[BombsList[0].y][BombsList[0].x] = 0
-            objects[(BombsList[0].y, BombsList[0].x)].coTheDiQua = True
+            objects.pop((BombsList[0].y, BombsList[0].x))
             player1.bombCapacity += 1
             BombExplored.append(BombsList.pop(0))
         keys_pressed = pygame.key.get_pressed()

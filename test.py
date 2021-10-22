@@ -6,5 +6,6 @@ class Test():
 t = Test()
 d = {(1, 2): t}
 
+d.setdefault()
 if not d.get((1, 2)).x:
     print(2)

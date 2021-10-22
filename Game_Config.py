@@ -15,6 +15,7 @@ BACKGROUND_IMAGE = pygame.transform.scale(
 FPS = 60
 GAME_AREA = pygame.Rect(25, 25, 850, 850)
 
+BITMAP = []
 objects = {}
 BombsList = []
 BombExplored = []
