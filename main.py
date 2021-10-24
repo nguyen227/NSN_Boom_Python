@@ -10,7 +10,7 @@ import Player
 from Game_Config import *
 
 player1 = Player.Player(75, 75, 50, 50)
-
+#nguyenanloz
 
 def draw_window():
     SCREEN.fill(Colors.BLUE)
