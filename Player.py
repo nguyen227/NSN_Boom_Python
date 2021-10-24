@@ -1,5 +1,8 @@
 import pygame
 from Game_Config import *
+import Bomb
+import Object
+import math
 
 IMAGES = [(pygame.image.load('./data/images/player_down_1.png')),
           ]
@@ -9,13 +12,13 @@ class Player():
 
     def __init__(self, x, y, width, height) -> None:
         self.box = pygame.Rect(x, y, 50, 50)
-        Player.set_previous_pos(self)
-        # self.x = x
-        # self.y = y
+        # Player.set_previous_pos(self)
+        self.x = x
+        self.y = y
         self.width = width
         self.height = height
-        self.speed = 5
-        self.bombCapacity = 3
+        self.speed = 3
+        self.bombCapacity = 4
         self.current_sprite = 0
         self.image = IMAGES[self.current_sprite]
         self.bombsList = {}
@@ -24,11 +27,23 @@ class Player():
         SCREEN.blit(self.image, (self.box.x-7.5, self.box.y-30))  # Main
         # SCREEN.blit(self.image, (self.box.x, self.box.y))  # Test
 
-    def get_current_pos(self):
-        return ((self.box.x-25) // 50, (self.box.y-25)//50)
+    def distance(self, coordinate):
+        x1, y1 = self.box.center
+        y2, x2 = coordinate
+        # print(player1.box.center, coordinate)
+        return math.sqrt(((x2*50+50.0)-x1)**2 + ((y2*50+50.0) - y1)**2)
 
-    def set_previous_pos(self):
-        self.previous_pos = ((self.box.x-25) // 50, (self.box.y-25)//50)
+    def datBomb(self):
+        i, j = self.box.y//50, self.box.x//50
+        if BitMap[i][j] != 0:
+            return
+        self.bombCapacity -= 1
+        BombsList.append(Bomb.Bomb(j, i, pygame.time.get_ticks()))
+        # i, j = BombsList[-1].y, BombsList[-1].x
+        BitMap[i][j] = 10
+        ObjsList[(i, j)] = Object.Object(j, i)
+        ObjsList[(i, j)].isBomb = True
+        CanWalkThrough.append(((i, j)))
 
     def handle_movement(self, keys_pressed):
         if keys_pressed[pygame.K_LEFT]:  # MOVE LEFT
@@ -41,7 +56,7 @@ class Player():
             self.move_down()
 
     def canMoveTo(x, y):
-        return objects.get((x, y)).coTheDiQua if objects.get((x, y)) else True
+        return ObjsList.get((x, y)).canWalkThrough if ObjsList.get((x, y)) else True
 
     def move_left(self):
         x = self.box.x - 25

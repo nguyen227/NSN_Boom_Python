@@ -1,70 +1,55 @@
+
 import pygame
 from pygame import key
-from pygame import math
-from Game_Config import *
 
-import Object
-import Colors
 import Bomb
+import BombWave
+import Colors
 import Map
 import Player
-import math
+from Game_Config import *
 
 player1 = Player.Player(75, 75, 50, 50)
 
 
 def draw_window():
     SCREEN.fill(Colors.BLUE)
-    SCREEN.blit(BACKGROUND_IMAGE, (25, 25))
+    SCREEN.blit(BACKGROUND_IMAGE, (GAME_AREA.x, GAME_AREA.y))
     Map.draw()
+    Bomb.reDraw()
+    BombWave.reDraw()
     player1.draw()
-    for i in BombsList:
-        i.redrawBomb()
-    for i in BombExplored:
-        if pygame.time.get_ticks() - i.explore_time <= 1.5 * 1000:
-            i.drawBombWave()
     pygame.display.update()
-
-
-def distant():
-    x1, y1 = player1.box.x, player1.box.y
-    x2, y2 = player1.previous_pos
-    return math.sqrt((x1-x2*50.0 - 25)**2 + (y1 - y2*50.0 - 25)**2)
 
 
 def main():
     Map.draw()
-    clock = pygame.time.Clock()
     running = True
-    vuadatbomb = False
     while running:
-        clock.tick(FPS)
+        CLOCK.tick(FPS)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE and player1.bombCapacity > 0:  # DAT BOMB
-                    if Map.BITMAP[(player1.box.y-25)//50][(player1.box.x - 25)//50] == 0:
-                        vuadatbomb = True
-                        player1.bombCapacity -= 1
-                        BombsList.append(
-                            Bomb.Bomb(player1.box.x-25, player1.box.y-25, pygame.time.get_ticks()))
-                        player1.set_previous_pos()
-                        Map.BITMAP[BombsList[-1].y][BombsList[-1].x] = 10
-                        objects[(BombsList[-1].y, BombsList[-1].x)
-                                ] = Object.Object(BombsList[-1].x, BombsList[-1].y)
+                    player1.datBomb()
 
-        if(vuadatbomb and distant() > 49):
-            if len(BombsList) > 0:
-                objects[(BombsList[-1].y, BombsList[-1].x)].coTheDiQua = False
-            vuadatbomb = False
+        for obj in CanWalkThrough:
+            if ObjsList.get(obj):
+                # print(distance(obj))
+                if player1.distance(obj) > 49:
+                    ObjsList[(obj)].canWalkThrough = False
+                    CanWalkThrough.pop(CanWalkThrough.index(obj))
+            else:
+                CanWalkThrough.pop(CanWalkThrough.index(obj))
+
         if len(BombsList) > 0 and pygame.time.get_ticks() - BombsList[0].set_time > 3 * 1000:
-            Map.BITMAP[BombsList[0].y][BombsList[0].x] = 0
-            objects.pop((BombsList[0].y, BombsList[0].x))
+            BitMap[BombsList[0].y][BombsList[0].x] = 0
+            ObjsList.pop((BombsList[0].y, BombsList[0].x))
             player1.bombCapacity += 1
-            BombExplored.append(BombsList.pop(0))
-        keys_pressed = pygame.key.get_pressed()
-        player1.handle_movement(keys_pressed)
+            ExploringBomb.append(BombsList.pop(0))
+
+        player1.handle_movement(pygame.key.get_pressed())
         draw_window()
     pygame.quit()
 

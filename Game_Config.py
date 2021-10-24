@@ -1,6 +1,7 @@
 import pygame
 from pygame import mixer
 
+
 # Initialize the pygame
 pygame.init()
 
@@ -14,8 +15,10 @@ BACKGROUND_IMAGE = pygame.transform.scale(
     pygame.image.load("./data/images/background1.jpg"), (850, 850))
 FPS = 60
 GAME_AREA = pygame.Rect(25, 25, 850, 850)
+CLOCK = pygame.time.Clock()
 
-BITMAP = []
-objects = {}
+BitMap = []
+ObjsList = {}
 BombsList = []
-BombExplored = []
+CanWalkThrough = []
+ExploringBomb = []

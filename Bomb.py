@@ -16,8 +16,8 @@ class Bomb():
 
     def __init__(self, x, y, set_time) -> None:
         self.length = 3
-        self.x = x//50
-        self.y = y//50
+        self.x = x
+        self.y = y
         self.set_time = set_time
         self.explore_time = set_time + 2000
         self.current_image = 0
@@ -27,7 +27,7 @@ class Bomb():
         self.wave.draw()
         # pygame.display.update()
 
-    def redrawBomb(self):
+    def animations(self):
         speed = 0.1
         self.current_image += speed
         if(self.current_image >= 8):
@@ -35,3 +35,8 @@ class Bomb():
         SCREEN.blit(IMAGES[int(self.current_image)],
                     (self.x*50 + 25 - 5, self.y*50 + 25 - 30))
         # pygame.display.update()
+
+
+def reDraw():
+    for i in BombsList:
+        i.animations()
