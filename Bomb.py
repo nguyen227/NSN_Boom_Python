@@ -12,16 +12,16 @@ IMAGES = [(pygame.image.load("./data/images/boom1.png")),
           (pygame.image.load("./data/images/boom8.png"))]
 
 
-class Bomb():
+class Bomb:
 
-    def __init__(self, x, y, set_time) -> None:
+    def __init__(self, i, j, set_time) -> None:
         self.length = 3
-        self.x = x
-        self.y = y
+        self.j = j
+        self.i = i
         self.set_time = set_time
         self.explore_time = set_time + 2000
         self.current_image = 0
-        self.wave = BombWave.BombWave(self.x, self.y, self.length)
+        self.wave = BombWave.BombWave(self.i, self.j, self.length)
 
     def drawBombWave(self) -> None:
         self.wave.draw()
@@ -33,10 +33,10 @@ class Bomb():
         if(self.current_image >= 8):
             self.current_image = 0
         SCREEN.blit(IMAGES[int(self.current_image)],
-                    (self.x*50 + 25 - 5, self.y*50 + 25 - 30))
+                    (self.j*50 + 25 - 5, self.i*50 + 25 - 30))
         # pygame.display.update()
 
 
 def reDraw():
-    for i in BombsList:
-        i.animations()
+    for bomb in BombsList:
+        bomb.animations()

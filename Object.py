@@ -17,18 +17,18 @@ IMAGES = [(pygame.image.load("./data/images/0.png")),
 
 
 class Object():
-    def __init__(self, x, y) -> None:
-        self.x = x
-        self.y = y
-        self.box = pygame.Rect(25 + x*50, 25 + y*50, 50, 50)
-        self.canWalkThrough = True if BitMap[y][x] in (10, 0) else False
-        self.breakable = True if BitMap[y][x] in (2, 4, 5) else False
+    def __init__(self, row, col) -> None:
+        self.row = row
+        self.col = col
+        self.box = pygame.Rect(25 + col*50, 25 + row*50, 50, 50)
+        self.canWalkThrough = True if BitMap[row][col] in (10, 0) else False
+        self.breakable = True if BitMap[row][col] in (2, 4, 5) else False
         self.isBomb = False
 
     def draw(self):
         # Main
-        SCREEN.blit(IMAGES[BitMap[self.y][self.x]],
-                    (25 + self.x*50, 25 + self.y*50))
+        SCREEN.blit(IMAGES[BitMap[self.row][self.col]],
+                    (25 + self.col*50, 25 + self.row*50))
         # Test
-        # SCREEN.blit(IMAGES[0 if Map.BitMap[self.y][self.x] == 0 else 11],
-        #             (25 + self.x*50, 25 + self.y*50))
+        # SCREEN.blit(IMAGES[0 if Map.BitMap[self.row][self.col] == 0 else 11],
+        #             (25 + self.col*50, 25 + self.row*50))

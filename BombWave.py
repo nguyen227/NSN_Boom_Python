@@ -14,74 +14,83 @@ IMAGES = [(pygame.image.load('./data/images/bombbang_mid_2.png')),
 
 
 class BombWave():
-    def __init__(self, j, i, length) -> None:
+    def __init__(self, i, j, length) -> None:
         self.length = length
-        self.x = j
-        self.y = i
-        self.Mid = [pygame.Rect(self.x*50+25, self.y*50+25, 50, 50)]
+        self.i = i
+        self.j = j
+        self.Mid = [(i, j)]
         self.Up = []
         self.Down = []
         self.Left = []
         self.Right = []
-        for i in range(1, self.length):
-            self.Up.append(pygame.Rect(
-                self.x*50+25, (self.y-i)*50+25, 50, 50))
-            self.Down.append(pygame.Rect(
-                self.x*50 + 25, (self.y+i)*50 + 25, 50, 50))
-            self.Left.append(pygame.Rect(
-                (self.x-i)*50 + 25, self.y*50 + 25, 50, 50))
-            self.Right.append(pygame.Rect(
-                (self.x+i)*50 + 25, self.y*50 + 25, 50, 50))
-        self.BombWave = [self.Mid, self.Up,
-                         self.Down, self.Left, self.Right]
 
-    def canExploreTo(Rect):
-        posInMatrix = ((Rect.y-25)//50, (Rect.x-25)//50)
-        if ObjsList.get(posInMatrix):
-            return ObjsList.get(posInMatrix).isBomb or ObjsList.get(posInMatrix).breakable
-            # return Rect.colliderect(ObjsList[(((Rect.y-25)//50, (Rect.x-25)//50))].box)
+        for k in range(1, self.length):
+            pos = (self.i-k, self.j)
+            if not BombWave.canExploreTo(pos):
+                break
+            self.Up.append(pos)
+            if ObjsList.get((pos[0], pos[1])) and ObjsList.get((pos[0], pos[1])).breakable:
+                break
+
+        for k in range(1, self.length):
+            pos = (self.i+k, self.j)
+            if not BombWave.canExploreTo(pos):
+                break
+            self.Down.append(pos)
+            if ObjsList.get((pos[0], pos[1])) and ObjsList.get((pos[0], pos[1])).breakable:
+                break
+
+        for k in range(1, self.length):
+            pos = (self.i, self.j-k)
+            if not BombWave.canExploreTo(pos):
+                break
+            self.Left.append(pos)
+            if ObjsList.get((pos[0], pos[1])) and ObjsList.get((pos[0], pos[1])).breakable:
+                break
+
+        for k in range(1, self.length):
+            pos = (self.i, self.j+k)
+            if not BombWave.canExploreTo(pos):
+                break
+            self.Right.append(pos)
+            if ObjsList.get((pos[0], pos[1])) and ObjsList.get((pos[0], pos[1])).breakable:
+                break
+        self.BombWave = [self.Mid, self.Up, self.Down, self.Left, self.Right]
+
+    def canExploreTo(pos):
+        if ObjsList.get(pos):
+            return ObjsList.get(pos).isBomb or ObjsList.get(pos).breakable
         else:
-            if 0 <= (Rect.y-25)//50 < 17 and 0 <= (Rect.x-25)//50 < 17:
+            if 0 <= pos[0] < 17 and 0 <= pos[1] < 17:
                 return True
             return False
 
     def draw(self):
-        for Rect in self.Mid:
-            SCREEN.blit(IMAGES[0], (Rect.x, Rect.y))
-        for Rect in self.Up:
-            if not BombWave.canExploreTo(Rect):
-                break
-            SCREEN.blit(IMAGES[1], (Rect.x, Rect.y))
-            if ObjsList.get(((Rect.y-25)//50, (Rect.x-25)//50)) and ObjsList.get(((Rect.y-25)//50, (Rect.x-25)//50)).breakable:
-                ObjsList.pop(((Rect.y-25)//50, (Rect.x-25)//50))
-                BitMap[(Rect.y-25)//50][(Rect.x-25)//50] = 0
-                break
-        for Rect in self.Down:
-            if not BombWave.canExploreTo(Rect):
-                break
-            SCREEN.blit(IMAGES[3], (Rect.x, Rect.y))
-            if ObjsList.get(((Rect.y-25)//50, (Rect.x-25)//50)) and ObjsList.get(((Rect.y-25)//50, (Rect.x-25)//50)).breakable:
-                ObjsList.pop(((Rect.y-25)//50, (Rect.x-25)//50))
-                BitMap[(Rect.y-25)//50][(Rect.x-25)//50] = 0
-                break
-        for Rect in self.Left:
-            if not BombWave.canExploreTo(Rect):
-                break
-            SCREEN.blit(IMAGES[5], (Rect.x, Rect.y))
-            if ObjsList.get(((Rect.y-25)//50, (Rect.x-25)//50)) and ObjsList.get(((Rect.y-25)//50, (Rect.x-25)//50)).breakable:
-                ObjsList.pop(((Rect.y-25)//50, (Rect.x-25)//50))
-                BitMap[(Rect.y-25)//50][(Rect.x-25)//50] = 0
-                break
-        for Rect in self.Right:
-            if not BombWave.canExploreTo(Rect):
-                break
-            SCREEN.blit(IMAGES[7], (Rect.x, Rect.y))
-            if ObjsList.get(((Rect.y-25)//50, (Rect.x-25)//50)) and ObjsList.get(((Rect.y-25)//50, (Rect.x-25)//50)).breakable:
-                ObjsList.pop(((Rect.y-25)//50, (Rect.x-25)//50))
-                BitMap[(Rect.y-25)//50][(Rect.x-25)//50] = 0
-                break
-        # pygame.display.update()
-        # pygame.time.wait(1000)
+        for pos in self.Mid:
+            SCREEN.blit(IMAGES[0], (pos[1]*50+25, pos[0]*50+25))
+            if ObjsList.get((pos[0], pos[1])) and ObjsList.get((pos[0], pos[1])).breakable:
+                ObjsList.pop((pos[0], pos[1]))
+                BitMap[pos[0]][pos[1]] = 0
+        for pos in self.Up:
+            SCREEN.blit(IMAGES[1], (pos[1]*50+25, pos[0]*50+25))
+            if ObjsList.get((pos[0], pos[1])) and ObjsList.get((pos[0], pos[1])).breakable:
+                ObjsList.pop((pos[0], pos[1]))
+                BitMap[pos[0]][pos[1]] = 0
+        for pos in self.Down:
+            SCREEN.blit(IMAGES[3], (pos[1]*50+25, pos[0]*50+25))
+            if ObjsList.get((pos[0], pos[1])) and ObjsList.get((pos[0], pos[1])).breakable:
+                ObjsList.pop((pos[0], pos[1]))
+                BitMap[pos[0]][pos[1]] = 0
+        for pos in self.Left:
+            SCREEN.blit(IMAGES[5], (pos[1]*50+25, pos[0]*50+25))
+            if ObjsList.get((pos[0], pos[1])) and ObjsList.get((pos[0], pos[1])).breakable:
+                ObjsList.pop((pos[0], pos[1]))
+                BitMap[pos[0]][pos[1]] = 0
+        for pos in self.Right:
+            SCREEN.blit(IMAGES[7], (pos[1]*50+25, pos[0]*50+25))
+            if ObjsList.get((pos[0], pos[1])) and ObjsList.get((pos[0], pos[1])).breakable:
+                ObjsList.pop((pos[0], pos[1]))
+                BitMap[pos[0]][pos[1]] = 0
 
 
 def reDraw():

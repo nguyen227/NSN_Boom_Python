@@ -38,12 +38,12 @@ class Player():
         if BitMap[i][j] != 0:
             return
         self.bombCapacity -= 1
-        BombsList.append(Bomb.Bomb(j, i, pygame.time.get_ticks()))
+        BombsList.append(Bomb.Bomb(i, j, pygame.time.get_ticks()))
         # i, j = BombsList[-1].y, BombsList[-1].x
         BitMap[i][j] = 10
-        ObjsList[(i, j)] = Object.Object(j, i)
+        ObjsList[(i, j)] = Object.Object(i, j)
         ObjsList[(i, j)].isBomb = True
-        CanWalkThrough.append(((i, j)))
+        CanWalkThrough.append((i, j))
 
     def handle_movement(self, keys_pressed):
         if keys_pressed[pygame.K_LEFT]:  # MOVE LEFT
@@ -55,8 +55,8 @@ class Player():
         if keys_pressed[pygame.K_DOWN]:  # MOVE DOWN
             self.move_down()
 
-    def canMoveTo(x, y):
-        return ObjsList.get((x, y)).canWalkThrough if ObjsList.get((x, y)) else True
+    def canMoveTo(i, j):
+        return ObjsList.get((i, j)).canWalkThrough if ObjsList.get((i, j)) else True
 
     def move_left(self):
         x = self.box.x - 25

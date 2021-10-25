@@ -44,8 +44,8 @@ def main():
                 CanWalkThrough.pop(CanWalkThrough.index(obj))
 
         if len(BombsList) > 0 and pygame.time.get_ticks() - BombsList[0].set_time > 3 * 1000:
-            BitMap[BombsList[0].y][BombsList[0].x] = 0
-            ObjsList.pop((BombsList[0].y, BombsList[0].x))
+            BitMap[BombsList[0].i][BombsList[0].j] = 0
+            ObjsList.pop((BombsList[0].i, BombsList[0].j))
             player1.bombCapacity += 1
             ExploringBomb.append(BombsList.pop(0))
 

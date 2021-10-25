@@ -10,7 +10,7 @@ file.close()
 for i in range(len(BitMap)):
     for j in range(len(BitMap[i])):
         if BitMap[i][j] != 0:
-            ObjsList[(i, j)] = Object.Object(j, i)
+            ObjsList[(i, j)] = Object.Object(i, j)
 
 
 def draw():
