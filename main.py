@@ -2,12 +2,8 @@
 import pygame
 from pygame import key
 
-import Bomb
-import BombWave
-import Colors
-import Map
-import Player
-from Game_Config import *
+from modules import Bomb, BombWave, Colors, Map, Player
+from modules.Game_Config import *
 
 player1 = Player.Player(75, 75, 50, 50)
 
@@ -42,12 +38,15 @@ def main():
                     CanWalkThrough.pop(CanWalkThrough.index(obj))
             else:
                 CanWalkThrough.pop(CanWalkThrough.index(obj))
-
-        if len(BombsList) > 0 and pygame.time.get_ticks() - BombsList[0].set_time > 3 * 1000:
+        if len(BombsList) > 0 and pygame.time.get_ticks() > BombsList[0].explore_time:
+            # print(pygame.time.get_ticks())
             BitMap[BombsList[0].i][BombsList[0].j] = 0
             ObjsList.pop((BombsList[0].i, BombsList[0].j))
             player1.bombCapacity += 1
             ExploringBomb.append(BombsList.pop(0))
+            for bomb in BombsList:
+                if (ExploringBomb[-1].i, ExploringBomb[-1].j) in bomb.wave.Wave:
+                    bomb.explore_time = ExploringBomb[-1].explore_time
 
         player1.handle_movement(pygame.key.get_pressed())
         draw_window()

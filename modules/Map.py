@@ -1,5 +1,5 @@
-import Object
-from Game_Config import *
+from modules import Object
+from modules.Game_Config import *
 
 file = open("./data/maps/level1.txt", "r")
 map = file.readlines()

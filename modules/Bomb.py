@@ -1,6 +1,6 @@
 import pygame
-from Game_Config import *
-import BombWave
+from modules.Game_Config import *
+from modules import BombWave
 
 IMAGES = [(pygame.image.load("./data/images/boom1.png")),
           (pygame.image.load("./data/images/boom2.png")),
@@ -19,7 +19,7 @@ class Bomb:
         self.j = j
         self.i = i
         self.set_time = set_time
-        self.explore_time = set_time + 2000
+        self.explore_time = set_time + 3*1000
         self.current_image = 0
         self.wave = BombWave.BombWave(self.i, self.j, self.length)
 

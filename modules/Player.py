@@ -1,7 +1,6 @@
 import pygame
-from Game_Config import *
-import Bomb
-import Object
+from modules.Game_Config import *
+from modules import Bomb, Object
 import math
 
 IMAGES = [(pygame.image.load('./data/images/player_down_1.png')),

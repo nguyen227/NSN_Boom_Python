@@ -1,5 +1,5 @@
 import pygame
-from Game_Config import *
+from modules.Game_Config import *
 
 IMAGES = [(pygame.image.load("./data/images/0.png")),
           (pygame.transform.scale(pygame.image.load(
