@@ -121,12 +121,12 @@ class Player():
     def move_left(self):
         # Image of Player when move_left
         if self.status == 3:
-            self.pos = (self.pos+1) % 5
+            self.pos = self.pos+self.speed/10
         else:
             self.status = 3
             self.pos = 0
 
-        self.image = IMAGES[self.status][self.pos]
+        self.image = IMAGES[self.status][int(self.pos) % 5]
 
         x = self.box.x - 25
         y = self.box.y - 25
@@ -151,12 +151,12 @@ class Player():
     def move_right(self):
         # Image of Player when move_right
         if self.status == 2:
-            self.pos = (self.pos+1) % 5
+            self.pos = self.pos+self.speed/10
         else:
             self.status = 2
             self.pos = 0
 
-        self.image = IMAGES[self.status][self.pos]
+        self.image = IMAGES[self.status][int(self.pos) % 5]
 
         x = self.box.x - 25
         y = self.box.y - 25
@@ -181,12 +181,12 @@ class Player():
     def move_up(self):
         # Image of Player when move_up
         if self.status == 1:
-            self.pos = (self.pos+1) % 5
+            self.pos = self.pos+self.speed/10
         else:
             self.status = 1
             self.pos = 0
 
-        self.image = IMAGES[self.status][self.pos]
+        self.image = IMAGES[self.status][int(self.pos) % 5]
 
         x = self.box.x - 25
         y = self.box.y - 25
@@ -211,12 +211,12 @@ class Player():
     def move_down(self):
         # Image of Player when move_down
         if self.status == 0:
-            self.pos = (self.pos+1) % 5
+            self.pos = self.pos+self.speed/10
         else:
             self.status = 0
             self.pos = 0
 
-        self.image = IMAGES[self.status][self.pos]
+        self.image = IMAGES[self.status][int(self.pos) % 5]
 
         x = self.box.x - 25
         y = self.box.y - 25
