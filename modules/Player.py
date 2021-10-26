@@ -6,8 +6,36 @@ import math
 
 from modules.Item import Item
 
-IMAGES = [(pygame.image.load('./data/images/player_down_1.png')),
-          ]
+IMAGES = [
+    [
+        (pygame.image.load('./data/images/player_down_1.png')),
+        (pygame.image.load('./data/images/player_down_2.png')),
+        (pygame.image.load('./data/images/player_down_3.png')),
+        (pygame.image.load('./data/images/player_down_4.png')),
+        (pygame.image.load('./data/images/player_down_5.png'))
+    ],
+    [
+        (pygame.image.load('./data/images/player_up_1.png')),
+        (pygame.image.load('./data/images/player_up_2.png')),
+        (pygame.image.load('./data/images/player_up_3.png')),
+        (pygame.image.load('./data/images/player_up_4.png')),
+        (pygame.image.load('./data/images/player_up_5.png'))
+    ],
+    [
+        (pygame.image.load('./data/images/player_right_1.png')),
+        (pygame.image.load('./data/images/player_right_2.png')),
+        (pygame.image.load('./data/images/player_right_3.png')),
+        (pygame.image.load('./data/images/player_right_4.png')),
+        (pygame.image.load('./data/images/player_right_5.png'))
+    ],
+    [
+        (pygame.image.load('./data/images/player_left_1.png')),
+        (pygame.image.load('./data/images/player_left_2.png')),
+        (pygame.image.load('./data/images/player_left_3.png')),
+        (pygame.image.load('./data/images/player_left_4.png')),
+        (pygame.image.load('./data/images/player_left_5.png'))
+    ]
+]
 
 
 class Player():
@@ -19,8 +47,9 @@ class Player():
         self.bombLength = 1
 
         # Animations
-        self.current_sprite = 0
-        self.image = IMAGES[self.current_sprite]
+        self.status = 0
+        self.pos = 0
+        self.image = IMAGES[self.status][self.pos]
 
     def get_pos(self):
         return ((self.box.centery - 25) // 50, (self.box.centerx - 25) // 50)
@@ -90,6 +119,15 @@ class Player():
         return ObjsList.get((i, j)).canWalkThrough if ObjsList.get((i, j)) else True
 
     def move_left(self):
+        # Image of Player when move_left
+        if self.status == 3:
+            self.pos = (self.pos+1) % 5
+        else:
+            self.status = 3
+            self.pos = 0
+
+        self.image = IMAGES[self.status][self.pos]
+
         x = self.box.x - 25
         y = self.box.y - 25
         for i in range(self.speed, 0, -1):
@@ -111,6 +149,15 @@ class Player():
                 return
 
     def move_right(self):
+        # Image of Player when move_right
+        if self.status == 2:
+            self.pos = (self.pos+1) % 5
+        else:
+            self.status = 2
+            self.pos = 0
+
+        self.image = IMAGES[self.status][self.pos]
+
         x = self.box.x - 25
         y = self.box.y - 25
         for i in range(self.speed, 0, -1):
@@ -132,6 +179,15 @@ class Player():
                 return
 
     def move_up(self):
+        # Image of Player when move_up
+        if self.status == 1:
+            self.pos = (self.pos+1) % 5
+        else:
+            self.status = 1
+            self.pos = 0
+
+        self.image = IMAGES[self.status][self.pos]
+
         x = self.box.x - 25
         y = self.box.y - 25
         for i in range(self.speed, 0, -1):
@@ -153,6 +209,15 @@ class Player():
                 return
 
     def move_down(self):
+        # Image of Player when move_down
+        if self.status == 0:
+            self.pos = (self.pos+1) % 5
+        else:
+            self.status = 0
+            self.pos = 0
+
+        self.image = IMAGES[self.status][self.pos]
+
         x = self.box.x - 25
         y = self.box.y - 25
         for i in range(self.speed, 0, -1):
