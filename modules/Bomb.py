@@ -12,10 +12,10 @@ IMAGES = [(pygame.image.load("./data/images/boom1.png")),
           (pygame.image.load("./data/images/boom8.png"))]
 
 
-class Bomb:
+class Bomb():
 
-    def __init__(self, i, j, set_time) -> None:
-        self.length = 3
+    def __init__(self, i, j, length, set_time) -> None:
+        self.length = length
         self.j = j
         self.i = i
         self.set_time = set_time

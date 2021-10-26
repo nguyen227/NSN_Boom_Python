@@ -1,7 +1,6 @@
 import pygame
 from pygame import mixer
 
-
 # Initialize the pygame
 pygame.init()
 
@@ -22,3 +21,8 @@ ObjsList = {}
 BombsList = []
 CanWalkThrough = []
 ExploringBomb = []
+ItemsList = {}
+
+
+def coordInGame(pos):
+    return (pos[1]*50+25, pos[0]*50+25)

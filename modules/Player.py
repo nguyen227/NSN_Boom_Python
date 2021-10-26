@@ -1,7 +1,10 @@
 import pygame
+from pygame import key
 from modules.Game_Config import *
 from modules import Bomb, Object
 import math
+
+from modules.Item import Item
 
 IMAGES = [(pygame.image.load('./data/images/player_down_1.png')),
           ]
@@ -9,18 +12,18 @@ IMAGES = [(pygame.image.load('./data/images/player_down_1.png')),
 
 class Player():
 
-    def __init__(self, x, y, width, height) -> None:
+    def __init__(self, x, y) -> None:
         self.box = pygame.Rect(x, y, 50, 50)
-        # Player.set_previous_pos(self)
-        self.x = x
-        self.y = y
-        self.width = width
-        self.height = height
-        self.speed = 3
-        self.bombCapacity = 4
+        self.speed = 2
+        self.bombCapacity = 1
+        self.bombLength = 1
+
+        # Animations
         self.current_sprite = 0
         self.image = IMAGES[self.current_sprite]
-        self.bombsList = {}
+
+    def get_pos(self):
+        return ((self.box.centery - 25) // 50, (self.box.centerx - 25) // 50)
 
     def draw(self) -> None:
         SCREEN.blit(self.image, (self.box.x-7.5, self.box.y-30))  # Main
@@ -29,22 +32,51 @@ class Player():
     def distance(self, coordinate):
         x1, y1 = self.box.center
         y2, x2 = coordinate
-        # print(player1.box.center, coordinate)
         return math.sqrt(((x2*50+50.0)-x1)**2 + ((y2*50+50.0) - y1)**2)
 
-    def datBomb(self):
+# _______________________________________________________________________________________\
+# HANDLE_BOMB____________________________________________________________________________\
+# _______________________________________________________________________________________\
+    def set_Bomb(self):
         i, j = self.box.y//50, self.box.x//50
-        if BitMap[i][j] != 0:
+        if self.bombCapacity == 0 or BitMap[i][j] != 0:
             return
         self.bombCapacity -= 1
-        BombsList.append(Bomb.Bomb(i, j, pygame.time.get_ticks()))
-        # i, j = BombsList[-1].y, BombsList[-1].x
+        BombsList.append(
+            Bomb.Bomb(i, j, self.bombLength, pygame.time.get_ticks()))
         BitMap[i][j] = 10
         ObjsList[(i, j)] = Object.Object(i, j)
         ObjsList[(i, j)].isBomb = True
         CanWalkThrough.append((i, j))
 
-    def handle_movement(self, keys_pressed):
+    def handleBomb(self):
+        for obj in CanWalkThrough:
+            if ObjsList.get(obj):
+                # print(distance(obj))
+                if self.distance(obj) > 49:
+                    ObjsList[(obj)].canWalkThrough = False
+                    CanWalkThrough.pop(CanWalkThrough.index(obj))
+            else:
+                CanWalkThrough.pop(CanWalkThrough.index(obj))
+
+        if len(BombsList) > 0 and pygame.time.get_ticks() > BombsList[0].explore_time:
+            # print(pygame.time.get_ticks())
+            BitMap[BombsList[0].i][BombsList[0].j] = 0
+            ObjsList.pop((BombsList[0].i, BombsList[0].j))
+            self.bombCapacity += 1
+            ExploringBomb.append(BombsList.pop(0))
+            for bomb in BombsList:
+                if (ExploringBomb[-1].i, ExploringBomb[-1].j) in bomb.wave.Wave:
+                    bomb.explore_time = ExploringBomb[-1].explore_time
+
+
+# _______________________________________________________________________________________\
+# HANDLE_MOVEMENT________________________________________________________________________\
+# _______________________________________________________________________________________\
+
+
+    def handle_movement(self):
+        keys_pressed = pygame.key.get_pressed()
         if keys_pressed[pygame.K_LEFT]:  # MOVE LEFT
             self.move_left()
         if keys_pressed[pygame.K_RIGHT]:  # MOVE RIGHT
@@ -141,3 +173,16 @@ class Player():
                 self.box.y += i
                 return
         return 0
+
+# _______________________________________________________________________________________\
+# HANDLE_ITEM____________________________________________________________________________\
+# _______________________________________________________________________________________\
+    def handle_item(self):
+        if ItemsList.get(self.get_pos()):
+            if ItemsList[self.get_pos()].type == 0 and self.bombCapacity < 7:
+                self.bombCapacity += 1
+            elif ItemsList[self.get_pos()].type == 1 and self.bombLength < 7:
+                self.bombLength += 1
+            elif ItemsList[self.get_pos()].type == 2 and self.speed < 10:
+                self.speed += 1
+            ItemsList.pop(self.get_pos())
