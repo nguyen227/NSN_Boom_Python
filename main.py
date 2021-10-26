@@ -16,6 +16,20 @@ def draw_window():
     player1.draw()
     Item.draw()
     BombWave.reDraw()
+
+    # FPS
+    current_fps = FONT.render(
+        "FPS " + str(int(CLOCK.get_fps())), True, (0, 0, 0))
+    player_speed = FONT.render("SPEED " + str(player1.speed), True, (0, 0, 0))
+    player_capacity = FONT.render(
+        "CAPACITY " + str(player1.bombCapacity), True, (0, 0, 0))
+    player_strenght = FONT.render(
+        "STRENGHT " + str(player1.bombLength), True, (0, 0, 0))
+    SCREEN.blit(current_fps, (0, 0))
+    SCREEN.blit(player_speed, (900, 25))
+    SCREEN.blit(player_capacity, (1000, 25))
+    SCREEN.blit(player_strenght, (1150, 25))
+
     pygame.display.update()
 
 
@@ -33,7 +47,7 @@ def main():
         player1.handleBomb()
         player1.handle_movement()
         player1.handle_item()
-        print(player1.speed, player1.bombCapacity, player1.bombLength)
+        # print(player1.speed, player1.bombCapacity, player1.bombLength)
         draw_window()
     pygame.quit()
 
