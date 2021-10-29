@@ -2,16 +2,15 @@ import pygame
 from modules.Game_Config import *
 
 IMAGES = [(pygame.image.load("./data/images/0.png")),
-          (pygame.transform.scale(pygame.image.load(
-              "./data/images/1.png"), (50, 71))),
-          (pygame.image.load("./data/images/2.png")),
-          (pygame.image.load("./data/images/3.png")),
-          (pygame.image.load("./data/images/4.png")),
-          (pygame.image.load("./data/images/5.png")),
-          (pygame.image.load("./data/images/3.png")),
-          (pygame.image.load("./data/images/3.png")),
-          (pygame.image.load("./data/images/3.png")),
-          (pygame.image.load("./data/images/3.png")),
+          (pygame.image.load("./data/images/1.png")),
+          (pygame.image.load("./data/images/21.png")),
+          (pygame.image.load("./data/images/31.png")),
+          (pygame.image.load("./data/images/41.png")),
+          (pygame.image.load("./data/images/51.png")),
+          (pygame.image.load("./data/images/31.png")),
+          (pygame.image.load("./data/images/31.png")),
+          (pygame.image.load("./data/images/31.png")),
+          (pygame.image.load("./data/images/31.png")),
           (pygame.image.load("./data/images/0.png")),
           (pygame.image.load('./data/images/player_test.png'))]
 
@@ -28,7 +27,7 @@ class Object():
     def draw(self):
         # Main
         SCREEN.blit(IMAGES[BitMap[self.row][self.col]],
-                    (25 + self.col*50, 25 + self.row*50))
+                    (25 + self.col*50, 25 + self.row*50-20))
         # Test
         # SCREEN.blit(IMAGES[0 if Map.BitMap[self.row][self.col] == 0 else 11],
         #             (25 + self.col*50, 25 + self.row*50))

@@ -36,12 +36,32 @@ def player2_handle_movement():
 def draw_window():
     SCREEN.fill(Colors.BLUE)
     SCREEN.blit(BACKGROUND_IMAGE, (GAME_AREA.x, GAME_AREA.y))
-    Map.draw()
     Bomb.reDraw()
-    player1.draw()
-    player2.draw()
     Item.draw()
     BombWave.reDraw()
+    Map.draw()
+    player1_pos = player1.get_pos()
+    player2_pos = player2.get_pos()
+    Min = min(player1_pos[0], player2_pos[0])
+    Max = max(player1_pos[0], player2_pos[0])
+    if Min == player1_pos[0]:
+        player1.draw()
+        for i in range(Min+1, Max):
+            if ObjsList.get((i, player1_pos[1])):
+                ObjsList[(i, player1_pos[1])].draw()
+        player2.draw()
+        for i in range(Max+1, 17):
+            if ObjsList.get((i, player2_pos[1])):
+                ObjsList[(i, player2_pos[1])].draw()
+    else:
+        player2.draw()
+        for i in range(Min+1, Max):
+            if ObjsList.get((i, player2_pos[1])):
+                ObjsList[(i, player2_pos[1])].draw()
+        player1.draw()
+        for i in range(Max+1, 17):
+            if ObjsList.get((i, player1_pos[1])):
+                ObjsList[(i, player1_pos[1])].draw()
 
     # FPS
     current_fps = FONT.render(

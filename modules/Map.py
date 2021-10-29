@@ -1,5 +1,6 @@
 from modules import Object
 from modules.Game_Config import *
+# from Main import player1, player2
 
 file = open("./data/maps/level1.txt", "r")
 map = file.readlines()
