@@ -6,7 +6,7 @@ from modules import Bomb, BombWave, Colors, Map, Player, Item
 from modules.Game_Config import *
 
 player1 = Player.Player(75, 75)
-player2 = Player.Player(75, 75)
+player2 = Player.Player(775, 775)
 
 
 def player1_handle_movement():
