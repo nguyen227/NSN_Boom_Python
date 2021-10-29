@@ -27,7 +27,7 @@ def player2_handle_movement():
         player2.move_left()
     if keys_pressed[pygame.K_RIGHT]:  # MOVE RIGHT
         player2.move_right()
-    if keys_pressed[pygame.K_UP]:  # MOVE UP
+    if keys_pressed[pygame.K_UP]:  # MOVE UPôi
         player2.move_up()
     if keys_pressed[pygame.K_DOWN]:  # MOVE DOWN
         player2.move_down()
