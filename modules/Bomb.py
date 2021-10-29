@@ -38,5 +38,5 @@ class Bomb():
 
 
 def reDraw():
-    for bomb in BombsList:
+    for bomb in BombsList.values():
         bomb.animations()

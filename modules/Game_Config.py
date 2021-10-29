@@ -18,7 +18,7 @@ CLOCK = pygame.time.Clock()
 
 BitMap = []
 ObjsList = {}
-BombsList = []
+BombsList = {}
 CanWalkThrough = []
 ExploringBomb = []
 ItemsList = {}
