@@ -29,5 +29,5 @@ class Object():
         SCREEN.blit(IMAGES[BitMap[self.row][self.col]],
                     (25 + self.col*50, 25 + self.row*50-20))
         # Test
-        # SCREEN.blit(IMAGES[0 if Map.BitMap[self.row][self.col] == 0 else 11],
-        #             (25 + self.col*50, 25 + self.row*50))
+        # SCREEN.blit(IMAGES[0 if BitMap[self.row][self.col] == 0 else 11],
+        #           (25 + self.col*50, 25 + self.row*50-20))
