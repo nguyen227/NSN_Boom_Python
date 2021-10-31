@@ -18,8 +18,3 @@ class Item():
 
     def draw(self):
         SCREEN.blit(IMAGES[self.type], coordInGame((self.i, self.j)))
-
-
-def draw():
-    for item in ItemsList.values():
-        item.draw()

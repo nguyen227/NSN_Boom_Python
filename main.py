@@ -5,9 +5,14 @@ from pygame import key
 from modules import Bomb, BombWave, Colors, Map, Player, Item
 from modules.Game_Config import *
 
+# <<<<<<< HEAD
 
-player1 = Player.Player(75, 75)
-player2 = Player.Player(75, 75)
+# player1 = Player.Player(75, 75)
+# player2 = Player.Player(75, 75)
+# =======
+player1 = Player.Player(75, 75, "Player 1")
+player2 = Player.Player(775, 775, "Player 2")
+# >>>>>>> 2f31d96a0ee9c96a2d6d2f9d2f2749c08109204a
 
 
 def player1_handle_movement():
@@ -37,11 +42,18 @@ def player2_handle_movement():
 def draw_window():
     SCREEN.fill(Colors.BLUE)
     SCREEN.blit(BACKGROUND_IMAGE, (GAME_AREA.x, GAME_AREA.y))
-    Map.draw()
-    Bomb.reDraw()
-    player1.draw()
-    player2.draw()
-    Item.draw()
+    for i in range(17):
+        for j in range(17):
+            if BombsList.get((i, j)):
+                BombsList[(i, j)].animations()
+            if ItemsList.get((i, j)):
+                ItemsList[(i, j)].draw()
+            if ObjsList.get((i, j)):
+                ObjsList[(i, j)].draw()
+            if player1.get_pos() == (i, j):
+                player1.draw()
+            if player2.get_pos() == (i, j):
+                player2.draw()
     BombWave.reDraw()
 
     # FPS
@@ -71,7 +83,6 @@ def draw_window():
 
 
 def main():
-    # Map.draw()
     running = True
     pygame.mixer.music.load('./data/sounds/background.wav')
     pygame.mixer.music.play(-1)
@@ -81,9 +92,9 @@ def main():
             if event.type == pygame.QUIT:
                 running = False
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE:  # Set Bomb
+                if event.key == pygame.K_SPACE:  # Player 1 set Bomb
                     player1.set_Bomb()
-                if event.key == pygame.K_SLASH:
+                if event.key == pygame.K_SLASH:  # Player 2 set Bomb
                     player2.set_Bomb()
         player1.handleBomb()
         player1_handle_movement()
@@ -92,7 +103,7 @@ def main():
         player2.handleBomb()
         player2_handle_movement()
         player2.handle_item()
-        # print(player1.speed, player1.bombCapacity, player1.bombLength)
+
         draw_window()
     pygame.quit()
 

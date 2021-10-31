@@ -25,7 +25,6 @@ class Bomb():
 
     def drawBombWave(self) -> None:
         self.wave.draw()
-        # pygame.display.update()
 
     def animations(self):
         speed = 0.1
@@ -34,9 +33,3 @@ class Bomb():
             self.current_image = 0
         SCREEN.blit(IMAGES[int(self.current_image)],
                     (self.j*50 + 25 - 5, self.i*50 + 25 - 30))
-        # pygame.display.update()
-
-
-def reDraw():
-    for bomb in BombsList.values():
-        bomb.animations()
