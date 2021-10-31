@@ -5,8 +5,8 @@ from pygame import key
 from modules import Bomb, BombWave, Colors, Map, Player, Item
 from modules.Game_Config import *
 
-player1 = Player.Player(75, 75)
-player2 = Player.Player(775, 775)
+player1 = Player.Player(75, 75, "Player 1")
+player2 = Player.Player(775, 775, "Player 2")
 
 
 def player1_handle_movement():
@@ -27,7 +27,7 @@ def player2_handle_movement():
         player2.move_left()
     if keys_pressed[pygame.K_RIGHT]:  # MOVE RIGHT
         player2.move_right()
-    if keys_pressed[pygame.K_UP]:  # MOVE UPôi
+    if keys_pressed[pygame.K_UP]:  # MOVE UP
         player2.move_up()
     if keys_pressed[pygame.K_DOWN]:  # MOVE DOWN
         player2.move_down()
@@ -36,32 +36,19 @@ def player2_handle_movement():
 def draw_window():
     SCREEN.fill(Colors.BLUE)
     SCREEN.blit(BACKGROUND_IMAGE, (GAME_AREA.x, GAME_AREA.y))
-    Bomb.reDraw()
-    Item.draw()
+    for i in range(17):
+        for j in range(17):
+            if BombsList.get((i, j)):
+                BombsList[(i, j)].animations()
+            if ItemsList.get((i, j)):
+                ItemsList[(i, j)].draw()
+            if ObjsList.get((i, j)):
+                ObjsList[(i, j)].draw()
+            if player1.get_pos() == (i, j):
+                player1.draw()
+            if player2.get_pos() == (i, j):
+                player2.draw()
     BombWave.reDraw()
-    Map.draw()
-    player1_pos = player1.get_pos()
-    player2_pos = player2.get_pos()
-    Min = min(player1_pos[0], player2_pos[0])
-    Max = max(player1_pos[0], player2_pos[0])
-    if Min == player1_pos[0]:
-        player1.draw()
-        for i in range(Min+1, Max):
-            if ObjsList.get((i, player1_pos[1])):
-                ObjsList[(i, player1_pos[1])].draw()
-        player2.draw()
-        for i in range(Max+1, 17):
-            if ObjsList.get((i, player2_pos[1])):
-                ObjsList[(i, player2_pos[1])].draw()
-    else:
-        player2.draw()
-        for i in range(Min+1, Max):
-            if ObjsList.get((i, player2_pos[1])):
-                ObjsList[(i, player2_pos[1])].draw()
-        player1.draw()
-        for i in range(Max+1, 17):
-            if ObjsList.get((i, player1_pos[1])):
-                ObjsList[(i, player1_pos[1])].draw()
 
     # FPS
     current_fps = FONT.render(
@@ -90,7 +77,6 @@ def draw_window():
 
 
 def main():
-    # Map.draw()
     running = True
     while running:
         CLOCK.tick(FPS)
@@ -98,9 +84,9 @@ def main():
             if event.type == pygame.QUIT:
                 running = False
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE:  # Set Bomb
+                if event.key == pygame.K_SPACE:  # Player 1 set Bomb
                     player1.set_Bomb()
-                if event.key == pygame.K_SLASH:
+                if event.key == pygame.K_SLASH:  # Player 2 set Bomb
                     player2.set_Bomb()
         player1.handleBomb()
         player1_handle_movement()
@@ -109,7 +95,7 @@ def main():
         player2.handleBomb()
         player2_handle_movement()
         player2.handle_item()
-        # print(player1.speed, player1.bombCapacity, player1.bombLength)
+
         draw_window()
     pygame.quit()
 

@@ -40,11 +40,12 @@ IMAGES = [
 
 class Player():
 
-    def __init__(self, x, y) -> None:
+    def __init__(self, x, y, name) -> None:
         self.box = pygame.Rect(x, y, 50, 50)
         self.speed = 2
         self.bombCapacity = 1
         self.bombLength = 1
+        self.name = FONT.render(name, True, (0, 0, 0))
 
         # Animations
         self.status = 0
@@ -57,6 +58,8 @@ class Player():
 
     def draw(self) -> None:
         SCREEN.blit(self.image, (self.box.x-7.5, self.box.y-30))  # Main
+        text_rect = self.name.get_rect(center=(self.box.x+25, self.box.y-20))
+        SCREEN.blit(self.name, text_rect)
         # SCREEN.blit(self.image, (self.box.x, self.box.y))  # Test
 
     def distance(self, coordinate):
@@ -106,6 +109,7 @@ class Player():
 # _______________________________________________________________________________________\
 # HANDLE_MOVEMENT________________________________________________________________________\
 # _______________________________________________________________________________________\
+
 
     def canMoveTo(i, j):
         return ObjsList.get((i, j)).canWalkThrough if ObjsList.get((i, j)) else True
