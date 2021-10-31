@@ -5,6 +5,7 @@ from pygame import key
 from modules import Bomb, BombWave, Colors, Map, Player, Item
 from modules.Game_Config import *
 
+
 player1 = Player.Player(75, 75)
 player2 = Player.Player(75, 75)
 
@@ -72,6 +73,8 @@ def draw_window():
 def main():
     # Map.draw()
     running = True
+    pygame.mixer.music.load('./data/sounds/background.wav')
+    pygame.mixer.music.play(-1)
     while running:
         CLOCK.tick(FPS)
         for event in pygame.event.get():

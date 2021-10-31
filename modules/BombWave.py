@@ -81,6 +81,10 @@ class BombWave():
             ItemsList[pos] = Item(pos[0], pos[1])
 
     def draw(self):
+        # set sound boom wave
+        sound_boomWave = pygame.mixer.Sound('./data/sounds/boom_bang.wav')
+        sound_boomWave.play()
+
         # WaveMid_Animations
         for pos in self.Mid:
             SCREEN.blit(IMAGES[0], (coordInGame(pos)))

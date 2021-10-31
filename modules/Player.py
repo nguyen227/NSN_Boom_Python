@@ -71,6 +71,11 @@ class Player():
         i, j = self.box.y//50, self.box.x//50
         if self.bombCapacity == 0 or BitMap[i][j] != 0:
             return
+
+        # sound boom
+        boom_sound = pygame.mixer.Sound('./data/sounds/set_boom.wav')
+        boom_sound.play()
+
         self.bombCapacity -= 1
         self.bombs.append(
             Bomb.Bomb(i, j, self.bombLength, pygame.time.get_ticks()))
@@ -106,6 +111,7 @@ class Player():
 # _______________________________________________________________________________________\
 # HANDLE_MOVEMENT________________________________________________________________________\
 # _______________________________________________________________________________________\
+
 
     def canMoveTo(i, j):
         return ObjsList.get((i, j)).canWalkThrough if ObjsList.get((i, j)) else True
