@@ -81,6 +81,7 @@ class BombWave():
             ItemsList[pos] = Item(pos[0], pos[1])
 
     def draw(self):
+
         # WaveMid_Animations
         for pos in self.Mid:
             SCREEN.blit(IMAGES[0], (coordInGame(pos)))

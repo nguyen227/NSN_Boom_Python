@@ -36,6 +36,7 @@ def player2_handle_movement():
 def draw_window():
     SCREEN.fill(Colors.BLUE)
     SCREEN.blit(BACKGROUND_IMAGE, (GAME_AREA.x, GAME_AREA.y))
+    BombWave.reDraw()
     for i in range(17):
         for j in range(17):
             if BombsList.get((i, j)):
@@ -48,18 +49,17 @@ def draw_window():
                 player1.draw()
             if player2.get_pos() == (i, j):
                 player2.draw()
-    BombWave.reDraw()
 
     # FPS
     current_fps = FONT.render(
         "FPS " + str(int(CLOCK.get_fps())), True, (0, 0, 0))
+    SCREEN.blit(current_fps, (0, 0))
 
     player_speed = FONT.render("SPEED " + str(player1.speed), True, (0, 0, 0))
     player_capacity = FONT.render(
         "CAPACITY " + str(player1.bombCapacity), True, (0, 0, 0))
     player_strenght = FONT.render(
         "STRENGHT " + str(player1.bombLength), True, (0, 0, 0))
-    SCREEN.blit(current_fps, (0, 0))
     SCREEN.blit(player_speed, (900, 25))
     SCREEN.blit(player_capacity, (1000, 25))
     SCREEN.blit(player_strenght, (1150, 25))
@@ -79,7 +79,7 @@ def draw_window():
 def main():
     running = True
     while running:
-        CLOCK.tick(FPS)
+        # CLOCK.tick(FPS)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False

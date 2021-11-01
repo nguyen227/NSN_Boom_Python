@@ -51,7 +51,10 @@ class Player():
         self.status = 0
         self.pos = 0
         self.image = IMAGES[self.status][self.pos]
+
+        # Handle Bomb
         self.bombs = []
+        self.canWalkThrough = []
 
     def get_pos(self):
         return ((self.box.centery - 25) // 50, (self.box.centerx - 25) // 50)
@@ -65,6 +68,7 @@ class Player():
     def distance(self, coordinate):
         x1, y1 = self.box.center
         y2, x2 = coordinate
+        # print(x1, y1, x2, y2)
         return math.sqrt(((x2*50+50.0)-x1)**2 + ((y2*50+50.0) - y1)**2)
 
 # _______________________________________________________________________________________\
@@ -74,6 +78,11 @@ class Player():
         i, j = self.box.y//50, self.box.x//50
         if self.bombCapacity == 0 or BitMap[i][j] != 0:
             return
+
+        # sound boom
+        boom_sound = pygame.mixer.Sound('./data/sounds/set_boom.wav')
+        boom_sound.play()
+
         self.bombCapacity -= 1
         self.bombs.append(
             Bomb.Bomb(i, j, self.bombLength, pygame.time.get_ticks()))
@@ -82,20 +91,23 @@ class Player():
         BitMap[i][j] = 10
         ObjsList[(i, j)] = Object.Object(i, j)
         ObjsList[(i, j)].isBomb = True
-        CanWalkThrough.append((i, j))
+        self.canWalkThrough.append((i, j))
 
     def handleBomb(self):
-        for obj in CanWalkThrough:
+        for obj in self.canWalkThrough:
             if ObjsList.get(obj):
                 # print(distance(obj))
                 if self.distance(obj) > 49:
                     ObjsList[(obj)].canWalkThrough = False
-                    CanWalkThrough.pop(CanWalkThrough.index(obj))
+                    self.canWalkThrough.pop(self.canWalkThrough.index(obj))
             else:
-                CanWalkThrough.pop(CanWalkThrough.index(obj))
+                self.canWalkThrough.pop(self.canWalkThrough.index(obj))
 
         if len(self.bombs) > 0 and pygame.time.get_ticks() > self.bombs[0].explore_time:
             # print(pygame.time.get_ticks())
+            # set sound boom wave
+            sound_boomWave = pygame.mixer.Sound('./data/sounds/boom_bang.wav')
+            sound_boomWave.play()
             BitMap[self.bombs[0].i][self.bombs[0].j] = 0
             ObjsList.pop((self.bombs[0].i, self.bombs[0].j))
             BombsList.pop((self.bombs[0].i, self.bombs[0].j))
@@ -109,7 +121,6 @@ class Player():
 # _______________________________________________________________________________________\
 # HANDLE_MOVEMENT________________________________________________________________________\
 # _______________________________________________________________________________________\
-
 
     def canMoveTo(i, j):
         return ObjsList.get((i, j)).canWalkThrough if ObjsList.get((i, j)) else True
