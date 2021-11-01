@@ -101,6 +101,9 @@ class Player():
 
         if len(self.bombs) > 0 and pygame.time.get_ticks() > self.bombs[0].explore_time:
             # print(pygame.time.get_ticks())
+            # set sound boom wave
+            sound_boomWave = pygame.mixer.Sound('./data/sounds/boom_bang.wav')
+            sound_boomWave.play()
             BitMap[self.bombs[0].i][self.bombs[0].j] = 0
             ObjsList.pop((self.bombs[0].i, self.bombs[0].j))
             BombsList.pop((self.bombs[0].i, self.bombs[0].j))
