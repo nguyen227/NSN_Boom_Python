@@ -4,9 +4,12 @@ from pygame import mixer
 # Initialize the pygame
 pygame.init()
 
+# Audio
 mixer.music.load('./data/sounds/background.wav')
 mixer.music.play(-1)
+
 FONT = pygame.font.SysFont('consolas', 20)
+
 WIDTH, HEIGHT = 1300, 900
 SCREEN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("NSN Boooooom")
@@ -19,7 +22,6 @@ CLOCK = pygame.time.Clock()
 BitMap = []
 ObjsList = {}
 BombsList = {}
-CanWalkThrough = []
 ExploringBomb = []
 ItemsList = {}
 

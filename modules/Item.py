@@ -16,5 +16,17 @@ class Item():
         self.j = j
         self.type = randint(0, 2)
 
+        # Animations
+        self.dir = 1  # 1 Down, -1 Up
+        self.val = 0
+
     def draw(self):
-        SCREEN.blit(IMAGES[self.type], coordInGame((self.i, self.j)))
+        self.val += self.dir * 0.5
+        if self.val > 0:
+            self.val = 0
+            self.dir *= -1
+        if self.val < -20:
+            self.val = -20
+            self.dir *= -1
+        SCREEN.blit(IMAGES[self.type],
+                    (self.j*50+25, self.i*50+25+self.val))

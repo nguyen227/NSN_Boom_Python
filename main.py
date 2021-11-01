@@ -5,14 +5,8 @@ from pygame import key
 from modules import Bomb, BombWave, Colors, Map, Player, Item
 from modules.Game_Config import *
 
-# <<<<<<< HEAD
-
-# player1 = Player.Player(75, 75)
-# player2 = Player.Player(75, 75)
-# =======
 player1 = Player.Player(75, 75, "Player 1")
 player2 = Player.Player(775, 775, "Player 2")
-# >>>>>>> 2f31d96a0ee9c96a2d6d2f9d2f2749c08109204a
 
 
 def player1_handle_movement():
@@ -42,6 +36,7 @@ def player2_handle_movement():
 def draw_window():
     SCREEN.fill(Colors.BLUE)
     SCREEN.blit(BACKGROUND_IMAGE, (GAME_AREA.x, GAME_AREA.y))
+    BombWave.reDraw()
     for i in range(17):
         for j in range(17):
             if BombsList.get((i, j)):
@@ -54,7 +49,6 @@ def draw_window():
                 player1.draw()
             if player2.get_pos() == (i, j):
                 player2.draw()
-    BombWave.reDraw()
 
     # FPS
     current_fps = FONT.render(
