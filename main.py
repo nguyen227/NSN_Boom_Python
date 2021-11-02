@@ -1,6 +1,7 @@
 
 import pygame
 from pygame import key
+from pygame.constants import GL_ALPHA_SIZE
 
 from modules import Bomb, BombWave, Colors, Map, Player, Item
 from modules.Game_Config import *
@@ -35,7 +36,10 @@ def player2_handle_movement():
 
 def draw_window():
     SCREEN.fill(Colors.BLUE)
+    pygame.draw.rect(SCREEN, Colors.BLACK, (GAME_AREA.x-5,
+                     GAME_AREA.y-5, GAME_AREA.width + 10, GAME_AREA.height+10), border_radius=5)
     SCREEN.blit(BACKGROUND_IMAGE, (GAME_AREA.x, GAME_AREA.y))
+
     BombWave.reDraw()
     for i in range(17):
         for j in range(17):
@@ -79,7 +83,7 @@ def draw_window():
 def main():
     running = True
     while running:
-        # CLOCK.tick(FPS)
+        CLOCK.tick(FPS)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
