@@ -1,7 +1,6 @@
 
 import pygame
 from pygame import key
-from pygame.constants import GL_ALPHA_SIZE
 
 from modules import Bomb, BombWave, Colors, Map, Player, Item
 from modules.Game_Config import *
@@ -94,11 +93,11 @@ def main():
                     player2.set_Bomb()
         player1.handleBomb()
         player1_handle_movement()
-        player1.handle_item()
+        player1.collectItem()
 
         player2.handleBomb()
         player2_handle_movement()
-        player2.handle_item()
+        player2.collectItem()
 
         draw_window()
     pygame.quit()
