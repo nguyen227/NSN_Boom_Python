@@ -8,7 +8,7 @@ pygame.init()
 mixer.music.load('./data/sounds/background.wav')
 mixer.music.play(-1)
 
-FONT = pygame.font.SysFont('consolas', 20)
+FONT = pygame.font.Font('./data/font/prstart.ttf',15)
 
 S = 50  # pixel per square
 
