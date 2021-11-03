@@ -38,7 +38,7 @@ def draw_window():
     pygame.draw.rect(SCREEN, Colors.BLACK, (GAME_AREA.x-5,
                      GAME_AREA.y-5, GAME_AREA.width + 10, GAME_AREA.height+10), border_radius=5)
     SCREEN.blit(BACKGROUND_IMAGE, (GAME_AREA.x, GAME_AREA.y))
-
+    SCREEN.blit(PANEL_IMAGE, (900, 0))
     BombWave.reDraw()
     for i in range(17):
         for j in range(17):
@@ -58,23 +58,19 @@ def draw_window():
         "FPS " + str(int(CLOCK.get_fps())), True, (0, 0, 0))
     SCREEN.blit(current_fps, (0, 0))
 
-    player_speed = FONT.render("SPEED " + str(player1.speed), True, (0, 0, 0))
-    player_capacity = FONT.render(
-        "CAPACITY " + str(player1.bombCapacity), True, (0, 0, 0))
-    player_strenght = FONT.render(
-        "STRENGHT " + str(player1.bombLength), True, (0, 0, 0))
-    SCREEN.blit(player_speed, (900, 25))
-    SCREEN.blit(player_capacity, (1000, 25))
-    SCREEN.blit(player_strenght, (1150, 25))
+    player1_speed = FONT.render(str(player1.speed), True, (0, 0, 0))
+    player1_capacity = FONT.render(str(player1.bombCapacity), True, (0, 0, 0))
+    player1_strenght = FONT.render(str(player1.bombLength), True, (0, 0, 0))
+    SCREEN.blit(player1_capacity, (1150, 340))
+    SCREEN.blit(player1_speed, (1150, 400))
+    SCREEN.blit(player1_strenght, (1150, 460))
 
-    player_speed = FONT.render("SPEED " + str(player2.speed), True, (0, 0, 0))
-    player_capacity = FONT.render(
-        "CAPACITY " + str(player2.bombCapacity), True, (0, 0, 0))
-    player_strenght = FONT.render(
-        "STRENGHT " + str(player2.bombLength), True, (0, 0, 0))
-    SCREEN.blit(player_speed, (900, 50))
-    SCREEN.blit(player_capacity, (1000, 50))
-    SCREEN.blit(player_strenght, (1150, 50))
+    player2_speed = FONT.render(str(player2.speed), True, (0, 0, 0))
+    player2_capacity = FONT.render(str(player2.bombCapacity), True, (0, 0, 0))
+    player2_strenght = FONT.render(str(player2.bombLength), True, (0, 0, 0))
+    SCREEN.blit(player2_capacity, (1150, 680))
+    SCREEN.blit(player2_speed, (1150, 740))
+    SCREEN.blit(player2_strenght, (1150, 800))
 
     pygame.display.update()
 
