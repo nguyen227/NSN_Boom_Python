@@ -1,39 +1,56 @@
 import pygame
-from pygame import key
 from modules.Game_Config import *
 from modules import Bomb, Object
 import math
 
-from modules.Item import Item
-
 IMAGES = [
     [
-        (pygame.image.load('./data/images/player_down_1.png')),
-        (pygame.image.load('./data/images/player_down_2.png')),
-        (pygame.image.load('./data/images/player_down_3.png')),
-        (pygame.image.load('./data/images/player_down_4.png')),
-        (pygame.image.load('./data/images/player_down_5.png'))
+        pygame.transform.scale(
+            pygame.image.load('./data/images/player_down_1.png'), (S*1.3, S*1.6)),
+        pygame.transform.scale(
+            pygame.image.load('./data/images/player_down_2.png'), (S*1.3, S*1.6)),
+        pygame.transform.scale(
+            pygame.image.load('./data/images/player_down_3.png'), (S*1.3, S*1.6)),
+        pygame.transform.scale(
+            pygame.image.load('./data/images/player_down_4.png'), (S*1.3, S*1.6)),
+        pygame.transform.scale(
+            pygame.image.load('./data/images/player_down_5.png'), (S*1.3, S*1.6))
     ],
     [
-        (pygame.image.load('./data/images/player_up_1.png')),
-        (pygame.image.load('./data/images/player_up_2.png')),
-        (pygame.image.load('./data/images/player_up_3.png')),
-        (pygame.image.load('./data/images/player_up_4.png')),
-        (pygame.image.load('./data/images/player_up_5.png'))
+        pygame.transform.scale(
+            pygame.image.load('./data/images/player_up_1.png'), (S*1.3, S*1.6)),
+        pygame.transform.scale(
+            pygame.image.load('./data/images/player_up_2.png'), (S*1.3, S*1.6)),
+        pygame.transform.scale(
+            pygame.image.load('./data/images/player_up_3.png'), (S*1.3, S*1.6)),
+        pygame.transform.scale(
+            pygame.image.load('./data/images/player_up_4.png'), (S*1.3, S*1.6)),
+        pygame.transform.scale(
+            pygame.image.load('./data/images/player_up_5.png'), (S*1.3, S*1.6))
     ],
     [
-        (pygame.image.load('./data/images/player_right_1.png')),
-        (pygame.image.load('./data/images/player_right_2.png')),
-        (pygame.image.load('./data/images/player_right_3.png')),
-        (pygame.image.load('./data/images/player_right_4.png')),
-        (pygame.image.load('./data/images/player_right_5.png'))
+        pygame.transform.scale(
+            pygame.image.load('./data/images/player_right_1.png'), (S*1.3, S*1.6)),
+        pygame.transform.scale(
+            pygame.image.load('./data/images/player_right_2.png'), (S*1.3, S*1.6)),
+        pygame.transform.scale(
+            pygame.image.load('./data/images/player_right_3.png'), (S*1.3, S*1.6)),
+        pygame.transform.scale(
+            pygame.image.load('./data/images/player_right_4.png'), (S*1.3, S*1.6)),
+        pygame.transform.scale(
+            pygame.image.load('./data/images/player_right_5.png'), (S*1.3, S*1.6))
     ],
     [
-        (pygame.image.load('./data/images/player_left_1.png')),
-        (pygame.image.load('./data/images/player_left_2.png')),
-        (pygame.image.load('./data/images/player_left_3.png')),
-        (pygame.image.load('./data/images/player_left_4.png')),
-        (pygame.image.load('./data/images/player_left_5.png'))
+        pygame.transform.scale(
+            pygame.image.load('./data/images/player_left_1.png'), (S*1.3, S*1.6)),
+        pygame.transform.scale(
+            pygame.image.load('./data/images/player_left_2.png'), (S*1.3, S*1.6)),
+        pygame.transform.scale(
+            pygame.image.load('./data/images/player_left_3.png'), (S*1.3, S*1.6)),
+        pygame.transform.scale(
+            pygame.image.load('./data/images/player_left_4.png'), (S*1.3, S*1.6)),
+        pygame.transform.scale(
+            pygame.image.load('./data/images/player_left_5.png'), (S*1.3, S*1.6))
     ]
 ]
 
@@ -41,7 +58,7 @@ IMAGES = [
 class Player():
 
     def __init__(self, x, y, name) -> None:
-        self.box = pygame.Rect(x, y, 50, 50)
+        self.box = pygame.Rect(x, y, S, S)
         self.speed = 2
         self.bombCapacity = 1
         self.bombLength = 1
@@ -57,11 +74,12 @@ class Player():
         self.canWalkThrough = []
 
     def get_pos(self):
-        return ((self.box.centery - 25) // 50, (self.box.centerx - 25) // 50)
+        return ((self.box.centery - S/2) // S, (self.box.centerx - S/2) // S)
 
     def draw(self) -> None:
-        SCREEN.blit(self.image, (self.box.x-7.5, self.box.y-30))  # Main
-        text_rect = self.name.get_rect(center=(self.box.x+25, self.box.y-20))
+        SCREEN.blit(self.image, (self.box.x-S*0.15, self.box.y-S*0.6))  # Main
+        text_rect = self.name.get_rect(
+            center=(self.box.x+S/2, self.box.y-S*0.4))
         SCREEN.blit(self.name, text_rect)
         # SCREEN.blit(self.image, (self.box.x, self.box.y))  # Test
 
@@ -69,13 +87,13 @@ class Player():
         x1, y1 = self.box.center
         y2, x2 = coordinate
         # print(x1, y1, x2, y2)
-        return math.sqrt(((x2*50+50.0)-x1)**2 + ((y2*50+50.0) - y1)**2)
+        return math.sqrt(((x2*S+S*1.0)-x1)**2 + ((y2*S+S*1.0) - y1)**2)
 
 # _______________________________________________________________________________________\
 # HANDLE_BOMB____________________________________________________________________________\
 # _______________________________________________________________________________________\
     def set_Bomb(self):
-        i, j = self.box.y//50, self.box.x//50
+        i, j = self.box.y//S, self.box.x//S
         if self.bombCapacity == 0 or BitMap[i][j] != 0:
             return
 
@@ -97,7 +115,7 @@ class Player():
         for obj in self.canWalkThrough:
             if ObjsList.get(obj):
                 # print(distance(obj))
-                if self.distance(obj) > 49:
+                if self.distance(obj) > S-1:
                     ObjsList[(obj)].canWalkThrough = False
                     self.canWalkThrough.pop(self.canWalkThrough.index(obj))
             else:
@@ -122,6 +140,7 @@ class Player():
 # HANDLE_MOVEMENT________________________________________________________________________\
 # _______________________________________________________________________________________\
 
+
     def canMoveTo(i, j):
         return ObjsList.get((i, j)).canWalkThrough if ObjsList.get((i, j)) else True
 
@@ -135,23 +154,23 @@ class Player():
 
         self.image = IMAGES[self.status][int(self.pos) % 5]
 
-        x = self.box.x - 25
-        y = self.box.y - 25
+        x = self.box.x - S/2
+        y = self.box.y - S/2
         for i in range(self.speed, 0, -1):
             x1 = x - i
-            if y + 49 > 850 or x1 + 49 > 850 or y < 0 or x1 < 0:
+            if y + S-1 > S*17 or x1 + S-1 > S*17 or y < 0 or x1 < 0:
                 continue
-            if Player.canMoveTo(y//50, x1//50) and not Player.canMoveTo((y+49)//50, x1//50):
-                if y+49 - ((y+49)//50*50) < self.speed:
-                    self.box.y -= y + 50 - ((y+49)//50*50)
+            if Player.canMoveTo(y//S, x1//S) and not Player.canMoveTo((y+S-1)//S, x1//S):
+                if y+S-1 - ((y+S-1)//S*S) < self.speed:
+                    self.box.y -= y + S - ((y+S-1)//S*S)
                     self.box.x -= i
                     return
-            elif not Player.canMoveTo(y//50, x1//50) and Player.canMoveTo((y+49)//50, x1//50):
-                if (y//50*50+49) - y < self.speed:
-                    self.box.y += (y//50*50+50) - y
+            elif not Player.canMoveTo(y//S, x1//S) and Player.canMoveTo((y+S-1)//S, x1//S):
+                if (y//S*S+S-1) - y < self.speed:
+                    self.box.y += (y//S*S+S) - y
                     self.box.x -= i
                     return
-            elif Player.canMoveTo(y//50, x1//50) and Player.canMoveTo((y+49)//50, x1//50):
+            elif Player.canMoveTo(y//S, x1//S) and Player.canMoveTo((y+S-1)//S, x1//S):
                 self.box.x -= i
                 return
 
@@ -165,23 +184,23 @@ class Player():
 
         self.image = IMAGES[self.status][int(self.pos) % 5]
 
-        x = self.box.x - 25
-        y = self.box.y - 25
+        x = self.box.x - S/2
+        y = self.box.y - S/2
         for i in range(self.speed, 0, -1):
             x1 = x + i
-            if y + 49 >= 850 or x1 + 49 >= 850 or y < 0 or x1 < 0:
+            if y + S-1 >= S*17 or x1 + S-1 >= S*17 or y < 0 or x1 < 0:
                 continue
-            if Player.canMoveTo(y//50, (x1+49)//50) and not Player.canMoveTo((y+49)//50, (x1+49)//50):
-                if y+49 - ((y+49)//50*50) < self.speed:
-                    self.box.y -= y + 50 - ((y+49)//50*50)
+            if Player.canMoveTo(y//S, (x1+S-1)//S) and not Player.canMoveTo((y+S-1)//S, (x1+S-1)//S):
+                if y+S-1 - ((y+S-1)//S*S) < self.speed:
+                    self.box.y -= y + S - ((y+S-1)//S*S)
                     self.box.x += i
                     return
-            elif not Player.canMoveTo(y//50, (x1+49)//50) and Player.canMoveTo((y+49)//50, (x1+49)//50):
-                if (y//50*50+49) - y < self.speed:
-                    self.box.y += (y//50*50+50) - y
+            elif not Player.canMoveTo(y//S, (x1+S-1)//S) and Player.canMoveTo((y+S-1)//S, (x1+S-1)//S):
+                if (y//S*S+S-1) - y < self.speed:
+                    self.box.y += (y//S*S+S) - y
                     self.box.x += i
                     return
-            elif Player.canMoveTo(y//50, (x1+49)//50) and Player.canMoveTo((y+49)//50, (x1+49)//50):
+            elif Player.canMoveTo(y//S, (x1+S-1)//S) and Player.canMoveTo((y+S-1)//S, (x1+S-1)//S):
                 self.box.x += i
                 return
 
@@ -195,23 +214,23 @@ class Player():
 
         self.image = IMAGES[self.status][int(self.pos) % 5]
 
-        x = self.box.x - 25
-        y = self.box.y - 25
+        x = self.box.x - S/2
+        y = self.box.y - S/2
         for i in range(self.speed, 0, -1):
             y1 = y - i
-            if y1 + 49 >= 850 or x + 49 >= 850 or y1 < 0 or x < 0:
+            if y1 + S-1 >= S*17 or x + S-1 >= S*17 or y1 < 0 or x < 0:
                 continue
-            if Player.canMoveTo(y1//50, x//50) and not Player.canMoveTo(y1//50, (x+49)//50):
-                if x+49 - ((x+49)//50*50) < self.speed:
-                    self.box.x -= x + 50 - ((x+49)//50*50)
+            if Player.canMoveTo(y1//S, x//S) and not Player.canMoveTo(y1//S, (x+S-1)//S):
+                if x+S-1 - ((x+S-1)//S*S) < self.speed:
+                    self.box.x -= x + S - ((x+S-1)//S*S)
                     self.box.y -= i
                     return
-            elif not Player.canMoveTo(y1//50, x//50) and Player.canMoveTo(y1//50, (x+49)//50):
-                if (x//50*50+49) - x < self.speed:
-                    self.box.x += (x//50*50+50) - x
+            elif not Player.canMoveTo(y1//S, x//S) and Player.canMoveTo(y1//S, (x+S-1)//S):
+                if (x//S*S+S-1) - x < self.speed:
+                    self.box.x += (x//S*S+S) - x
                     self.box.y -= i
                     return
-            elif Player.canMoveTo(y1//50, x//50) and Player.canMoveTo(y1//50, (x+49)//50):
+            elif Player.canMoveTo(y1//S, x//S) and Player.canMoveTo(y1//S, (x+S-1)//S):
                 self.box.y -= i
                 return
 
@@ -225,23 +244,23 @@ class Player():
 
         self.image = IMAGES[self.status][int(self.pos) % 5]
 
-        x = self.box.x - 25
-        y = self.box.y - 25
+        x = self.box.x - S/2
+        y = self.box.y - S/2
         for i in range(self.speed, 0, -1):
             y1 = y + i
-            if y1 + 49 >= 850 or x + 49 >= 850 or y1 < 0 or x < 0:
+            if y1 + S-1 >= S*17 or x + S-1 >= S*17 or y1 < 0 or x < 0:
                 continue
-            if Player.canMoveTo((y1+49)//50, x//50) and not Player.canMoveTo((y1+49)//50, (x+49)//50):
-                if x+49 - ((x+49)//50*50) < self.speed:
-                    self.box.x -= x + 50 - ((x+49)//50*50)
+            if Player.canMoveTo((y1+S-1)//S, x//S) and not Player.canMoveTo((y1+S-1)//S, (x+S-1)//S):
+                if x+S-1 - ((x+S-1)//S*S) < self.speed:
+                    self.box.x -= x + S - ((x+S-1)//S*S)
                     self.box.y += i
                     return
-            elif not Player.canMoveTo((y1+49)//50, x//50) and Player.canMoveTo((y1+49)//50, (x+49)//50):
-                if (x//50*50+49) - x < self.speed:
-                    self.box.x += (x//50*50+50) - x
+            elif not Player.canMoveTo((y1+S-1)//S, x//S) and Player.canMoveTo((y1+S-1)//S, (x+S-1)//S):
+                if (x//S*S+S-1) - x < self.speed:
+                    self.box.x += (x//S*S+S) - x
                     self.box.y += i
                     return
-            elif Player.canMoveTo((y1+49)//50, x//50) and Player.canMoveTo((y1+49)//50, (x+49)//50):
+            elif Player.canMoveTo((y1+S-1)//S, x//S) and Player.canMoveTo((y1+S-1)//S, (x+S-1)//S):
                 self.box.y += i
                 return
         return 0

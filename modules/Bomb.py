@@ -2,14 +2,20 @@ import pygame
 from modules.Game_Config import *
 from modules import BombWave
 
-IMAGES = [(pygame.image.load("./data/images/boom1.png")),
-          (pygame.image.load("./data/images/boom2.png")),
-          (pygame.image.load("./data/images/boom3.png")),
-          (pygame.image.load("./data/images/boom4.png")),
-          (pygame.image.load("./data/images/boom5.png")),
-          (pygame.image.load("./data/images/boom6.png")),
-          (pygame.image.load("./data/images/boom7.png")),
-          (pygame.image.load("./data/images/boom8.png"))]
+IMAGES = [pygame.transform.scale(pygame.image.load("./data/images/boom1.png"), (S*1.2, S*1.6)),
+          pygame.transform.scale(pygame.image.load(
+              "./data/images/boom2.png"), (S*1.2, S*1.6)),
+          pygame.transform.scale(pygame.image.load(
+              "./data/images/boom3.png"), (S*1.2, S*1.6)),
+          pygame.transform.scale(pygame.image.load(
+              "./data/images/boom4.png"), (S*1.2, S*1.6)),
+          pygame.transform.scale(pygame.image.load(
+              "./data/images/boom5.png"), (S*1.2, S*1.6)),
+          pygame.transform.scale(pygame.image.load(
+              "./data/images/boom6.png"), (S*1.2, S*1.6)),
+          pygame.transform.scale(pygame.image.load(
+              "./data/images/boom7.png"), (S*1.2, S*1.6)),
+          pygame.transform.scale(pygame.image.load("./data/images/boom8.png"), (S*1.2, S*1.6))]
 
 
 class Bomb():
@@ -32,4 +38,4 @@ class Bomb():
         if(self.current_image >= 8):
             self.current_image = 0
         SCREEN.blit(IMAGES[int(self.current_image)],
-                    (self.j*50 + 25 - 5, self.i*50 + 25 - 30))
+                    (self.j*S + S/2 - 5, self.i*S + S/2 - 30))

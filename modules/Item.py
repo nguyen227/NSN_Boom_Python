@@ -4,14 +4,15 @@ import pygame
 
 from modules.Game_Config import *
 
-IMAGES = [(pygame.image.load("./data/images/item_capacity.png")),
-          (pygame.image.load("./data/images/item_length.png")),
-          (pygame.image.load("./data/images/item_speed.png"))]
+IMAGES = [pygame.transform.scale(pygame.image.load("./data/images/item_capacity.png"), (S, S)),
+          pygame.transform.scale(pygame.image.load(
+              "./data/images/item_length.png"), (S, S)),
+          pygame.transform.scale(pygame.image.load("./data/images/item_speed.png"), (S, S))]
 
 
 class Item():
     def __init__(self, i, j) -> None:
-        self.box = pygame.Rect(i*50+50, j*50+50, 50, 50)
+        self.box = pygame.Rect(i*S+S, j*S+S, S, S)
         self.i = i
         self.j = j
         self.type = randint(0, 2)
@@ -29,4 +30,4 @@ class Item():
             self.val = -20
             self.dir *= -1
         SCREEN.blit(IMAGES[self.type],
-                    (self.j*50+25, self.i*50+25+self.val))
+                    (self.j*S+S/2, self.i*S+S/2+self.val))

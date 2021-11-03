@@ -5,8 +5,8 @@ from pygame import key
 from modules import Bomb, BombWave, Colors, Map, Player, Item
 from modules.Game_Config import *
 
-player1 = Player.Player(75, 75, "Player 1")
-player2 = Player.Player(775, 775, "Player 2")
+player1 = Player.Player(S+S/2, S+S/2, "Player 1")
+player2 = Player.Player(S*15+S/2, S*15+S/2, "Player 2")
 
 
 def player1_handle_movement():
@@ -38,7 +38,7 @@ def draw_window():
     pygame.draw.rect(SCREEN, Colors.BLACK, (GAME_AREA.x-5,
                      GAME_AREA.y-5, GAME_AREA.width + 10, GAME_AREA.height+10), border_radius=5)
     SCREEN.blit(BACKGROUND_IMAGE, (GAME_AREA.x, GAME_AREA.y))
-    SCREEN.blit(PANEL_IMAGE, (900, 0))
+    SCREEN.blit(PANEL_IMAGE, (S*18, 0))
     BombWave.reDraw()
     for i in range(17):
         for j in range(17):
@@ -61,16 +61,16 @@ def draw_window():
     player1_speed = FONT.render(str(player1.speed), True, (0, 0, 0))
     player1_capacity = FONT.render(str(player1.bombCapacity), True, (0, 0, 0))
     player1_strenght = FONT.render(str(player1.bombLength), True, (0, 0, 0))
-    SCREEN.blit(player1_capacity, (1150, 340))
-    SCREEN.blit(player1_speed, (1150, 400))
-    SCREEN.blit(player1_strenght, (1150, 460))
+    SCREEN.blit(player1_capacity, (S*23, S*18*17/45))
+    SCREEN.blit(player1_speed, (S*23, S*18*4/9))
+    SCREEN.blit(player1_strenght, (S*23, S*18*23/45))
 
     player2_speed = FONT.render(str(player2.speed), True, (0, 0, 0))
     player2_capacity = FONT.render(str(player2.bombCapacity), True, (0, 0, 0))
     player2_strenght = FONT.render(str(player2.bombLength), True, (0, 0, 0))
-    SCREEN.blit(player2_capacity, (1150, 680))
-    SCREEN.blit(player2_speed, (1150, 740))
-    SCREEN.blit(player2_strenght, (1150, 800))
+    SCREEN.blit(player2_capacity, (S*23, S*18*34/45))
+    SCREEN.blit(player2_speed, (S*23, S*18*37/45))
+    SCREEN.blit(player2_strenght, (S*23, S*18*8/9))
 
     pygame.display.update()
 
