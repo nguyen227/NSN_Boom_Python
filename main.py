@@ -63,14 +63,14 @@ def draw_window():
     player1_strenght = FONT.render(str(player1.bombLength), True, (0, 0, 0))
     SCREEN.blit(player1_capacity, (1150, 340))
     SCREEN.blit(player1_speed, (1150, 400))
-    SCREEN.blit(player1_strenght, (1150, 460))
+    SCREEN.blit(player1_strenght, (1150, 462))
 
     player2_speed = FONT.render(str(player2.speed), True, (0, 0, 0))
     player2_capacity = FONT.render(str(player2.bombCapacity), True, (0, 0, 0))
     player2_strenght = FONT.render(str(player2.bombLength), True, (0, 0, 0))
     SCREEN.blit(player2_capacity, (1150, 680))
-    SCREEN.blit(player2_speed, (1150, 740))
-    SCREEN.blit(player2_strenght, (1150, 800))
+    SCREEN.blit(player2_speed, (1150, 742))
+    SCREEN.blit(player2_strenght, (1150, 805))
 
     pygame.display.update()
 
