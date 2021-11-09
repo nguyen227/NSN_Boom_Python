@@ -5,52 +5,32 @@ import math
 
 IMAGES = [
     [
-        pygame.transform.scale(
-            pygame.image.load('./data/images/player_down_1.png'), (S*1.3, S*1.6)),
-        pygame.transform.scale(
-            pygame.image.load('./data/images/player_down_2.png'), (S*1.3, S*1.6)),
-        pygame.transform.scale(
-            pygame.image.load('./data/images/player_down_3.png'), (S*1.3, S*1.6)),
-        pygame.transform.scale(
-            pygame.image.load('./data/images/player_down_4.png'), (S*1.3, S*1.6)),
-        pygame.transform.scale(
-            pygame.image.load('./data/images/player_down_5.png'), (S*1.3, S*1.6))
+        pygame.image.load('./data/images/player_down_1.png'),
+        pygame.image.load('./data/images/player_down_2.png'),
+        pygame.image.load('./data/images/player_down_3.png'),
+        pygame.image.load('./data/images/player_down_4.png'),
+        pygame.image.load('./data/images/player_down_5.png')
     ],
     [
-        pygame.transform.scale(
-            pygame.image.load('./data/images/player_up_1.png'), (S*1.3, S*1.6)),
-        pygame.transform.scale(
-            pygame.image.load('./data/images/player_up_2.png'), (S*1.3, S*1.6)),
-        pygame.transform.scale(
-            pygame.image.load('./data/images/player_up_3.png'), (S*1.3, S*1.6)),
-        pygame.transform.scale(
-            pygame.image.load('./data/images/player_up_4.png'), (S*1.3, S*1.6)),
-        pygame.transform.scale(
-            pygame.image.load('./data/images/player_up_5.png'), (S*1.3, S*1.6))
+        pygame.image.load('./data/images/player_up_1.png'),
+        pygame.image.load('./data/images/player_up_2.png'),
+        pygame.image.load('./data/images/player_up_3.png'),
+        pygame.image.load('./data/images/player_up_4.png'),
+        pygame.image.load('./data/images/player_up_5.png')
     ],
     [
-        pygame.transform.scale(
-            pygame.image.load('./data/images/player_right_1.png'), (S*1.3, S*1.6)),
-        pygame.transform.scale(
-            pygame.image.load('./data/images/player_right_2.png'), (S*1.3, S*1.6)),
-        pygame.transform.scale(
-            pygame.image.load('./data/images/player_right_3.png'), (S*1.3, S*1.6)),
-        pygame.transform.scale(
-            pygame.image.load('./data/images/player_right_4.png'), (S*1.3, S*1.6)),
-        pygame.transform.scale(
-            pygame.image.load('./data/images/player_right_5.png'), (S*1.3, S*1.6))
+        pygame.image.load('./data/images/player_right_1.png'),
+        pygame.image.load('./data/images/player_right_2.png'),
+        pygame.image.load('./data/images/player_right_3.png'),
+        pygame.image.load('./data/images/player_right_4.png'),
+        pygame.image.load('./data/images/player_right_5.png')
     ],
     [
-        pygame.transform.scale(
-            pygame.image.load('./data/images/player_left_1.png'), (S*1.3, S*1.6)),
-        pygame.transform.scale(
-            pygame.image.load('./data/images/player_left_2.png'), (S*1.3, S*1.6)),
-        pygame.transform.scale(
-            pygame.image.load('./data/images/player_left_3.png'), (S*1.3, S*1.6)),
-        pygame.transform.scale(
-            pygame.image.load('./data/images/player_left_4.png'), (S*1.3, S*1.6)),
-        pygame.transform.scale(
-            pygame.image.load('./data/images/player_left_5.png'), (S*1.3, S*1.6))
+        pygame.image.load('./data/images/player_left_1.png'),
+        pygame.image.load('./data/images/player_left_2.png'),
+        pygame.image.load('./data/images/player_left_3.png'),
+        pygame.image.load('./data/images/player_left_4.png'),
+        pygame.image.load('./data/images/player_left_5.png')
     ]
 ]
 
@@ -77,7 +57,8 @@ class Player():
         return ((self.box.centery - S/2) // S, (self.box.centerx - S/2) // S)
 
     def draw(self) -> None:
-        SCREEN.blit(self.image, (self.box.x-S*0.15, self.box.y-S*0.6))  # Main
+        SCREEN.blit(pygame.transform.scale(self.image, (S*1.3, S*1.6)),
+                    (self.box.x-S*0.15, self.box.y-S*0.6))  # Main
         text_rect = self.name.get_rect(
             center=(self.box.x+S/2, self.box.y-S*0.4))
         SCREEN.blit(self.name, text_rect)
@@ -132,7 +113,7 @@ class Player():
             self.bombCapacity += 1
             ExploringBomb.append(self.bombs.pop(0))
             for bomb in self.bombs:
-                if (ExploringBomb[-1].i, ExploringBomb[-1].j) in bomb.wave.Wave:
+                if (ExploringBomb[-1].i, ExploringBomb[-1].j) in bomb.wave.All:
                     bomb.explore_time = ExploringBomb[-1].explore_time
 
 

@@ -4,10 +4,9 @@ import pygame
 
 from modules.Game_Config import *
 
-IMAGES = [pygame.transform.scale(pygame.image.load("./data/images/item_capacity.png"), (S, S)),
-          pygame.transform.scale(pygame.image.load(
-              "./data/images/item_length.png"), (S, S)),
-          pygame.transform.scale(pygame.image.load("./data/images/item_speed.png"), (S, S))]
+IMAGES = [pygame.image.load("./data/images/item_capacity.png"),
+          pygame.image.load("./data/images/item_length.png"),
+          pygame.image.load("./data/images/item_speed.png")]
 
 
 class Item():
@@ -26,8 +25,8 @@ class Item():
         if self.val > 0:
             self.val = 0
             self.dir *= -1
-        if self.val < -20:
-            self.val = -20
+        if self.val < -S*0.4:
+            self.val = -S*0.4
             self.dir *= -1
-        SCREEN.blit(IMAGES[self.type],
+        SCREEN.blit(pygame.transform.scale(IMAGES[self.type], (S, S)),
                     (self.j*S+S/2, self.i*S+S/2+self.val))

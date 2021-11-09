@@ -24,7 +24,7 @@ class BombWave():
         self.Down = []
         self.Left = []
         self.Right = []
-        self.Wave = {(i, j)}
+        self.All = {(i, j)}
         self.createBombWave()
 
     def canExploreTo(pos):
@@ -41,7 +41,7 @@ class BombWave():
             if not BombWave.canExploreTo(pos):
                 break
             self.Up.append(pos)
-            self.Wave.add(pos)
+            self.All.add(pos)
             if ObjsList.get((pos[0], pos[1])) and ObjsList.get((pos[0], pos[1])).breakable:
                 break
 
@@ -50,7 +50,7 @@ class BombWave():
             if not BombWave.canExploreTo(pos):
                 break
             self.Down.append(pos)
-            self.Wave.add(pos)
+            self.All.add(pos)
             if ObjsList.get((pos[0], pos[1])) and ObjsList.get((pos[0], pos[1])).breakable:
                 break
 
@@ -59,7 +59,7 @@ class BombWave():
             if not BombWave.canExploreTo(pos):
                 break
             self.Left.append(pos)
-            self.Wave.add(pos)
+            self.All.add(pos)
             if ObjsList.get((pos[0], pos[1])) and ObjsList.get((pos[0], pos[1])).breakable:
                 break
 
@@ -68,7 +68,7 @@ class BombWave():
             if not BombWave.canExploreTo(pos):
                 break
             self.Right.append(pos)
-            self.Wave.add(pos)
+            self.All.add(pos)
             if ObjsList.get((pos[0], pos[1])) and ObjsList.get((pos[0], pos[1])).breakable:
                 break
         # self.BombWave = [self.Mid, self.Up, self.Down, self.Left, self.Right]

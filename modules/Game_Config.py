@@ -8,7 +8,7 @@ pygame.init()
 mixer.music.load('./data/sounds/background.wav')
 mixer.music.play(-1)
 
-FONT = pygame.font.Font('./data/font/prstart.ttf',15)
+FONT = pygame.font.Font('./data/font/prstart.ttf', 15)
 
 S = 50  # pixel per square
 
@@ -20,6 +20,8 @@ BACKGROUND_IMAGE = pygame.transform.scale(
     pygame.image.load("./data/images/background1.jpg"), (S*17, S*17))
 PANEL_IMAGE = pygame.transform.scale(
     pygame.image.load("./data/images/backright.png"), (S*8, S*18))
+MENU_IMAGE = pygame.transform.scale(pygame.image.load(
+    "./data/images/backout.png"), (S*26, S*18))
 FPS = 60
 GAME_AREA = pygame.Rect(S/2, S/2, S*17, S*17)
 CLOCK = pygame.time.Clock()
