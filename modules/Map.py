@@ -1,8 +1,18 @@
 from modules import Object
 from modules.Game_Config import *
+import random
 # from Main import player1, player2
 
-file = open("./data/maps/level1.txt", "r")
+mapFile = [
+    "./data/maps/level1.txt",
+    "./data/maps/level2.txt",
+    "./data/maps/level3.txt",
+    "./data/maps/level4.txt",
+    "./data/maps/level5.txt"
+]
+
+mapPlay = random.choice(mapFile)
+file = open(mapPlay, "r")
 map = file.readlines()
 for i in range(len(map)):
     BitMap.append([int(x) for x in map[i].split()])
