@@ -3,15 +3,22 @@ from modules.Game_Config import *
 from modules.Item import Item
 from random import randint
 
-IMAGES = [(pygame.image.load('./data/images/bombbang_mid_2.png')),
-          (pygame.image.load('./data/images/bombbang_up_1.png')),
-          (pygame.image.load('./data/images/bombbang_up_2.png')),
-          (pygame.image.load('./data/images/bombbang_down_1.png')),
-          (pygame.image.load('./data/images/bombbang_down_2.png')),
-          (pygame.image.load('./data/images/bombbang_left_1.png')),
-          (pygame.image.load('./data/images/bombbang_left_2.png')),
-          (pygame.image.load('./data/images/bombbang_right_1.png')),
-          (pygame.image.load('./data/images/bombbang_right_2.png'))]
+IMAGES = [pygame.transform.scale(pygame.image.load('./data/images/bombbang_mid_2.png'), (S, S)),
+          pygame.transform.scale(pygame.image.load(
+              './data/images/bombbang_up_1.png'), (S, S)),
+          pygame.transform.scale(pygame.image.load(
+              './data/images/bombbang_up_2.png'), (S, S)),
+          pygame.transform.scale(pygame.image.load(
+              './data/images/bombbang_down_1.png'), (S, S)),
+          pygame.transform.scale(pygame.image.load(
+              './data/images/bombbang_down_2.png'), (S, S)),
+          pygame.transform.scale(pygame.image.load(
+              './data/images/bombbang_left_1.png'), (S, S)),
+          pygame.transform.scale(pygame.image.load(
+              './data/images/bombbang_left_2.png'), (S, S)),
+          pygame.transform.scale(pygame.image.load(
+              './data/images/bombbang_right_1.png'), (S, S)),
+          pygame.transform.scale(pygame.image.load('./data/images/bombbang_right_2.png'), (S, S))]
 
 
 class BombWave():

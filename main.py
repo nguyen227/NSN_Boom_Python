@@ -1,10 +1,10 @@
 
-import pygame
 import sys
+import pygame
 from pygame import key
 from pygame.constants import MOUSEBUTTONDOWN
 
-from modules import Bomb, BombWave, Colors, Map, Player, Item, Button
+from modules import Bomb, BombWave, Button, Colors, Item, Map, Player
 from modules.Game_Config import *
 
 

@@ -10,7 +10,7 @@ mixer.music.play(-1)
 
 FONT = pygame.font.Font('./data/font/prstart.ttf', 15)
 
-S = 50  # pixel per square
+S = 40  # pixel per square
 
 WIDTH, HEIGHT = S*26, S*18
 
