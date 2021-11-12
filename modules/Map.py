@@ -6,7 +6,7 @@ from modules.Game_Config import *
 
 def load_map():
     BitMap.clear()
-    lv = randint(1, 2)
+    lv = randint(1, 5)
     with open(f"./data/maps/map{lv}.txt", "r") as file:
         map = file.readlines()
         for i in range(len(map)):
