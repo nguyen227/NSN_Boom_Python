@@ -11,8 +11,7 @@ IMAGES = [pygame.image.load("./data/images/0.png"),
           pygame.image.load("./data/images/31.png"),
           pygame.image.load("./data/images/31.png"),
           pygame.image.load("./data/images/31.png"),
-          pygame.image.load("./data/images/0.png"),
-          pygame.image.load('./data/images/player_test.png')]
+          pygame.image.load("./data/images/0.png")]
 
 
 class Object():

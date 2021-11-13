@@ -26,6 +26,11 @@ FPS = 60
 GAME_AREA = pygame.Rect(S/2, S/2, S*17, S*17)
 CLOCK = pygame.time.Clock()
 
+P1_WIN = pygame.transform.scale(
+    pygame.image.load("./data/images/P1WIN.jpg"), (S*26, S*18))
+
+P2_WIN = pygame.transform.scale(
+    pygame.image.load("./data/images/P2WIN.jpg"), (S*26, S*18))
 
 BitMap = []
 ObjsList = {}

@@ -3,51 +3,81 @@ from modules.Game_Config import *
 from modules import Bomb, Object
 import math
 
-IMAGES = [
+IMAGES = [[
     [
-        pygame.image.load('./data/images/player_down_1.png'),
-        pygame.image.load('./data/images/player_down_2.png'),
-        pygame.image.load('./data/images/player_down_3.png'),
-        pygame.image.load('./data/images/player_down_4.png'),
-        pygame.image.load('./data/images/player_down_5.png')
+        pygame.image.load('./data/images/PlayerSkin/Skin1/player_down_1.png'),
+        pygame.image.load('./data/images/PlayerSkin/Skin1/player_down_2.png'),
+        pygame.image.load('./data/images/PlayerSkin/Skin1/player_down_3.png'),
+        pygame.image.load('./data/images/PlayerSkin/Skin1/player_down_4.png'),
+        pygame.image.load('./data/images/PlayerSkin/Skin1/player_down_5.png')
     ],
     [
-        pygame.image.load('./data/images/player_up_1.png'),
-        pygame.image.load('./data/images/player_up_2.png'),
-        pygame.image.load('./data/images/player_up_3.png'),
-        pygame.image.load('./data/images/player_up_4.png'),
-        pygame.image.load('./data/images/player_up_5.png')
+        pygame.image.load('./data/images/PlayerSkin/Skin1/player_up_1.png'),
+        pygame.image.load('./data/images/PlayerSkin/Skin1/player_up_2.png'),
+        pygame.image.load('./data/images/PlayerSkin/Skin1/player_up_3.png'),
+        pygame.image.load('./data/images/PlayerSkin/Skin1/player_up_4.png'),
+        pygame.image.load('./data/images/PlayerSkin/Skin1/player_up_5.png')
     ],
     [
-        pygame.image.load('./data/images/player_right_1.png'),
-        pygame.image.load('./data/images/player_right_2.png'),
-        pygame.image.load('./data/images/player_right_3.png'),
-        pygame.image.load('./data/images/player_right_4.png'),
-        pygame.image.load('./data/images/player_right_5.png')
+        pygame.image.load('./data/images/PlayerSkin/Skin1/player_right_1.png'),
+        pygame.image.load('./data/images/PlayerSkin/Skin1/player_right_2.png'),
+        pygame.image.load('./data/images/PlayerSkin/Skin1/player_right_3.png'),
+        pygame.image.load('./data/images/PlayerSkin/Skin1/player_right_4.png'),
+        pygame.image.load('./data/images/PlayerSkin/Skin1/player_right_5.png')
     ],
     [
-        pygame.image.load('./data/images/player_left_1.png'),
-        pygame.image.load('./data/images/player_left_2.png'),
-        pygame.image.load('./data/images/player_left_3.png'),
-        pygame.image.load('./data/images/player_left_4.png'),
-        pygame.image.load('./data/images/player_left_5.png')
-    ]
+        pygame.image.load('./data/images/PlayerSkin/Skin1/player_left_1.png'),
+        pygame.image.load('./data/images/PlayerSkin/Skin1/player_left_2.png'),
+        pygame.image.load('./data/images/PlayerSkin/Skin1/player_left_3.png'),
+        pygame.image.load('./data/images/PlayerSkin/Skin1/player_left_4.png'),
+        pygame.image.load('./data/images/PlayerSkin/Skin1/player_left_5.png')
+    ]],
+    [
+    [
+        pygame.image.load('./data/images/PlayerSkin/Skin2/player_down_1.png'),
+        pygame.image.load('./data/images/PlayerSkin/Skin2/player_down_2.png'),
+        pygame.image.load('./data/images/PlayerSkin/Skin2/player_down_3.png'),
+        pygame.image.load('./data/images/PlayerSkin/Skin2/player_down_4.png'),
+        pygame.image.load('./data/images/PlayerSkin/Skin2/player_down_5.png')
+    ],
+    [
+        pygame.image.load('./data/images/PlayerSkin/Skin2/player_up_1.png'),
+        pygame.image.load('./data/images/PlayerSkin/Skin2/player_up_2.png'),
+        pygame.image.load('./data/images/PlayerSkin/Skin2/player_up_3.png'),
+        pygame.image.load('./data/images/PlayerSkin/Skin2/player_up_4.png'),
+        pygame.image.load('./data/images/PlayerSkin/Skin2/player_up_5.png')
+    ],
+    [
+        pygame.image.load('./data/images/PlayerSkin/Skin2/player_right_1.png'),
+        pygame.image.load('./data/images/PlayerSkin/Skin2/player_right_2.png'),
+        pygame.image.load('./data/images/PlayerSkin/Skin2/player_right_3.png'),
+        pygame.image.load('./data/images/PlayerSkin/Skin2/player_right_4.png'),
+        pygame.image.load('./data/images/PlayerSkin/Skin2/player_right_5.png')
+    ],
+    [
+        pygame.image.load('./data/images/PlayerSkin/Skin2/player_left_1.png'),
+        pygame.image.load('./data/images/PlayerSkin/Skin2/player_left_2.png'),
+        pygame.image.load('./data/images/PlayerSkin/Skin2/player_left_3.png'),
+        pygame.image.load('./data/images/PlayerSkin/Skin2/player_left_4.png'),
+        pygame.image.load('./data/images/PlayerSkin/Skin2/player_left_5.png')
+    ]]
 ]
 
 
 class Player():
 
-    def __init__(self, x, y, name) -> None:
+    def __init__(self, x, y, name, skin) -> None:
         self.box = pygame.Rect(x, y, S, S)
         self.speed = 2
         self.bombCapacity = 1
         self.bombLength = 1
         self.name = FONT.render(name, True, (0, 0, 0))
+        self.skin = skin-1
 
         # Animations
         self.status = 0
         self.pos = 0
-        self.image = IMAGES[self.status][self.pos]
+        self.image = IMAGES[self.skin][self.status][self.pos]
 
         # Handle Bomb
         self.bombs = []
@@ -121,7 +151,6 @@ class Player():
 # HANDLE_MOVEMENT________________________________________________________________________\
 # _______________________________________________________________________________________\
 
-
     def canMoveTo(i, j):
         return ObjsList.get((i, j)).canWalkThrough if ObjsList.get((i, j)) else True
 
@@ -133,7 +162,7 @@ class Player():
             self.status = 3
             self.pos = 0
 
-        self.image = IMAGES[self.status][int(self.pos) % 5]
+        self.image = IMAGES[self.skin][self.status][int(self.pos) % 5]
 
         x = self.box.x - S/2
         y = self.box.y - S/2
@@ -163,7 +192,7 @@ class Player():
             self.status = 2
             self.pos = 0
 
-        self.image = IMAGES[self.status][int(self.pos) % 5]
+        self.image = IMAGES[self.skin][self.status][int(self.pos) % 5]
 
         x = self.box.x - S/2
         y = self.box.y - S/2
@@ -193,7 +222,7 @@ class Player():
             self.status = 1
             self.pos = 0
 
-        self.image = IMAGES[self.status][int(self.pos) % 5]
+        self.image = IMAGES[self.skin][self.status][int(self.pos) % 5]
 
         x = self.box.x - S/2
         y = self.box.y - S/2
@@ -223,7 +252,7 @@ class Player():
             self.status = 0
             self.pos = 0
 
-        self.image = IMAGES[self.status][int(self.pos) % 5]
+        self.image = IMAGES[self.skin][self.status][int(self.pos) % 5]
 
         x = self.box.x - S/2
         y = self.box.y - S/2
