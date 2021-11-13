@@ -6,6 +6,7 @@ from pygame.constants import MOUSEBUTTONDOWN
 
 from modules import Bomb, BombWave, Button, Colors, Item, Map, Player
 from modules.Game_Config import *
+start_time = 0
 
 
 def player1_handle_movement(player1):
@@ -52,10 +53,10 @@ def draw_window(player1, player2):
             if player2.get_pos() == (i, j):
                 player2.draw()
 
-    # FPS
-    current_fps = FONT.render(
-        "FPS " + str(int(CLOCK.get_fps())), True, (0, 0, 0))
-    SCREEN.blit(current_fps, (0, 0))
+    # # FPS
+    # current_fps = FONT.render(
+    #     "FPS " + str(int(CLOCK.get_fps())), True, (0, 0, 0))
+    # SCREEN.blit(current_fps, (0, 0))
 
     # Player1 Attributes
     player1_speed = FONT.render(str(player1.speed), True, (0, 0, 0))
@@ -74,11 +75,17 @@ def draw_window(player1, player2):
     SCREEN.blit(player2_strength, (S * 23, S * 18 * 8 / 9))
 
     # Clock
-    current_time = pygame.time.get_ticks()
+    global start_time
+    current_time = pygame.time.get_ticks() - start_time
     countDownClock = FONT.render(
         f"{(TIME-current_time)//60000}:{(TIME-current_time)%60000//1000}", True, (255, 255, 255))
     SCREEN.blit(countDownClock,
                 (S * 22-countDownClock.get_rect().width/2, S * 2))
+    if TIME - current_time <= 0:
+        SCREEN.blit(DRAW_WIN, (0, 0))
+        pygame.display.update()
+        pygame.time.wait(3000)
+        main()
     pygame.display.update()
 
 
@@ -111,6 +118,8 @@ def main():
     ItemsList.clear()
     player1 = Player.Player(S + S / 2, S + S / 2, "Player 1", 1)
     player2 = Player.Player(S * 15 + S / 2, S * 15 + S / 2, "Player 2", 2)
+    global start_time
+    start_time = pygame.time.get_ticks()
 
     Map.load_map()
     Map.update_objects()
@@ -147,10 +156,6 @@ def main():
                     pygame.display.update()
                     pygame.time.wait(3000)
                     main()
-
-        if TIME - pygame.time.get_ticks() <= 0:
-
-            pass
 
 
 if __name__ == "__main__":
