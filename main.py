@@ -139,15 +139,15 @@ def main():
         for bomb in ExploringBomb:
             for pos in bomb.wave.All:
                 if player1.get_pos() == pos:
-                    # Dua ra thong bao
-                    print("Player2 Win")
+                    SCREEN.blit(P2_WIN, (0, 0))
+                    pygame.display.update()
                     pygame.time.wait(2000)
-                    return
+                    main()
                 if player2.get_pos() == pos:
-                    # Dua ra thong bao
-                    print("Player1 Win")
+                    SCREEN.blit(P1_WIN, (0, 0))
+                    pygame.display.update()
                     pygame.time.wait(2000)
-                    return
+                    main()
 
 
 if __name__ == "__main__":
