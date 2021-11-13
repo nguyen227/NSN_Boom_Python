@@ -110,8 +110,8 @@ def main():
     ExploringBomb.clear()
     ObjsList.clear()
     ItemsList.clear()
-    player1 = Player.Player(S + S / 2, S + S / 2, "Player 1")
-    player2 = Player.Player(S * 15 + S / 2, S * 15 + S / 2, "Player 2")
+    player1 = Player.Player(S + S / 2, S + S / 2, "Player 1", 1)
+    player2 = Player.Player(S * 15 + S / 2, S * 15 + S / 2, "Player 2", 2)
 
     Map.load_map()
     Map.update_objects()
