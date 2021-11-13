@@ -57,7 +57,7 @@ class Player():
         return ((self.box.centery - S/2) // S, (self.box.centerx - S/2) // S)
 
     def draw(self) -> None:
-        SCREEN.blit(pygame.transform.scale(self.image, (S*1.3, S*1.6)),
+        SCREEN.blit(pygame.transform.scale(self.image, (S*13//10, S*8//5)),
                     (self.box.x-S*0.15, self.box.y-S*0.6))  # Main
         text_rect = self.name.get_rect(
             center=(self.box.x+S/2, self.box.y-S*0.4))
