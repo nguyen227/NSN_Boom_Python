@@ -74,7 +74,6 @@ def draw_window(player1, player2):
     SCREEN.blit(player2_strength, (S * 23, S * 18 * 8 / 9))
 
     # Clock
-    TIME = 6*1000*60
     current_time = pygame.time.get_ticks()
     countDownClock = FONT.render(
         f"{(TIME-current_time)//60000}:{(TIME-current_time)%60000//1000}", True, (255, 255, 255))
@@ -141,13 +140,17 @@ def main():
                 if player1.get_pos() == pos:
                     SCREEN.blit(P2_WIN, (0, 0))
                     pygame.display.update()
-                    pygame.time.wait(2000)
+                    pygame.time.wait(3000)
                     main()
                 if player2.get_pos() == pos:
                     SCREEN.blit(P1_WIN, (0, 0))
                     pygame.display.update()
-                    pygame.time.wait(2000)
+                    pygame.time.wait(3000)
                     main()
+
+        if TIME - pygame.time.get_ticks() <= 0:
+
+            pass
 
 
 if __name__ == "__main__":

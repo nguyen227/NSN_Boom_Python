@@ -32,6 +32,9 @@ P1_WIN = pygame.transform.scale(
 P2_WIN = pygame.transform.scale(
     pygame.image.load("./data/images/P2WIN.jpg"), (S*26, S*18))
 
+TIME = 6*1000*60
+
+
 BitMap = []
 ObjsList = {}
 BombsList = {}
