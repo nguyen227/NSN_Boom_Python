@@ -25,7 +25,7 @@ class Object():
 
     def draw(self):
         # Main
-        SCREEN.blit(pygame.transform.scale(IMAGES[BitMap[self.row][self.col]], (S, S*1.4)),
+        SCREEN.blit(pygame.transform.scale(IMAGES[BitMap[self.row][self.col]], (S, S*7//5)),
                     (S/2 + self.col*S, S/2 + self.row*S-S*0.4))
         # Test
         # SCREEN.blit(IMAGES[0 if BitMap[self.row][self.col] == 0 else 11],

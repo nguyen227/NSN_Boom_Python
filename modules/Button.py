@@ -18,7 +18,7 @@ class Button:
     def draw(self):
         if self.isOver(pygame.mouse.get_pos()):
             SCREEN.blit(pygame.transform.scale(
-                IMAGES[self.type+1], (S*2.74, S*1.04)), (self.box.x, self.box.y))
+                IMAGES[self.type+1], (S*137//50, S*26//25)), (self.box.x, self.box.y))
         else:
             SCREEN.blit(pygame.transform.scale(
-                IMAGES[self.type], (S*2.74, S*1.04)), (self.box.x, self.box.y))
+                IMAGES[self.type], (S*137//50, S*26//25)), (self.box.x, self.box.y))

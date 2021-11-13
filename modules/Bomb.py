@@ -31,5 +31,5 @@ class Bomb():
         self.current_image += speed
         if(self.current_image >= 8):
             self.current_image = 0
-        SCREEN.blit(pygame.transform.scale(IMAGES[int(self.current_image)], (S*1.2, S*1.6)),
+        SCREEN.blit(pygame.transform.scale(IMAGES[int(self.current_image)], (S*6//5, S*8//5)),
                     (self.j*S + S/2 - S*0.1, self.i*S + S/2 - S*0.6))
