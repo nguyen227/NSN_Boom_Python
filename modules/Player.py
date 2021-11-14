@@ -273,6 +273,7 @@ class Player():
             elif Player.canMoveTo((y1+S-1)//S, x//S) and Player.canMoveTo((y1+S-1)//S, (x+S-1)//S):
                 self.box.y += i
                 return
+            
         return 0
 
 # _______________________________________________________________________________________\
@@ -287,3 +288,5 @@ class Player():
             elif ItemsList[self.get_pos()].type == 2 and self.speed < 5:
                 self.speed += 1
             ItemsList.pop(self.get_pos())
+            sound_boomitem = pygame.mixer.Sound('./data/sounds/item.wav')
+            sound_boomitem.play()
