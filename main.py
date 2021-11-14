@@ -1,6 +1,7 @@
 
 import sys
 import pygame
+from pygame import mixer 
 from pygame import key
 from pygame.constants import MOUSEBUTTONDOWN
 
@@ -8,7 +9,7 @@ from modules import Bomb, BombWave, Button, Colors, Item, Map, Player
 from modules.Game_Config import *
 start_time = 0
 
-
+sound_win = mixer.Sound("./data/sounds/win.wav")
 def player1_handle_movement(player1):
     keys_pressed = pygame.key.get_pressed()
     if keys_pressed[pygame.K_a]:  # MOVE LEFT
@@ -84,12 +85,15 @@ def draw_window(player1, player2):
     if TIME - current_time <= 0:
         SCREEN.blit(DRAW_WIN, (0, 0))
         pygame.display.update()
-        pygame.time.wait(3000)
+        pygame.time.wait(7000)
+        sound_win.play()
+        mixer.music.stop()
         main()
     pygame.display.update()
 
 
 def menu():
+    
     running = True
     start_button = Button.Button(
         SCREEN.get_rect().centerx - S * 2.74 / 2, S * 16, "start")
@@ -109,7 +113,7 @@ def menu():
 
 def main():
     running = True
-
+    mixer.music.play(-1)
     # Reset game data
     BitMap.clear()
     BombsList.clear()
@@ -142,20 +146,26 @@ def main():
         player2.handleBomb()
         player2_handle_movement(player2)
         player2.collectItem()
-
+        
         draw_window(player1, player2)
         for bomb in ExploringBomb:
             for pos in bomb.wave.All:
                 if player1.get_pos() == pos:
                     SCREEN.blit(P2_WIN, (0, 0))
                     pygame.display.update()
-                    pygame.time.wait(3000)
+                    mixer.music.stop()
+                    sound_win.play()
+                    pygame.time.wait(7000)
                     main()
                 if player2.get_pos() == pos:
                     SCREEN.blit(P1_WIN, (0, 0))
                     pygame.display.update()
-                    pygame.time.wait(3000)
+                    sound_win.play()
+                    mixer.music.stop()
+                    pygame.time.wait(7000)
                     main()
+                
+
 
 
 if __name__ == "__main__":
