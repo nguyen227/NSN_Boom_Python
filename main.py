@@ -8,7 +8,7 @@ from pygame.constants import MOUSEBUTTONDOWN
 from modules import Bomb, BombWave, Button, Colors, Item, Map, Player
 from modules.Game_Config import *
 start_time = 0
-
+#nhac nen
 sound_win = mixer.Sound("./data/sounds/win.wav")
 def player1_handle_movement(player1):
     keys_pressed = pygame.key.get_pressed()
@@ -91,9 +91,9 @@ def draw_window(player1, player2):
         main()
     pygame.display.update()
 
-
+sound_menu = mixer.Sound("./data/sounds/waitsound.mp3")
 def menu():
-    
+    sound_menu.play()
     running = True
     start_button = Button.Button(
         SCREEN.get_rect().centerx - S * 2.74 / 2, S * 16, "start")
@@ -113,6 +113,7 @@ def menu():
 
 def main():
     running = True
+    sound_menu.stop()
     mixer.music.play(-1)
     # Reset game data
     BitMap.clear()
@@ -164,7 +165,7 @@ def main():
                     mixer.music.stop()
                     pygame.time.wait(7000)
                     main()
-                
+          
 
 
 
