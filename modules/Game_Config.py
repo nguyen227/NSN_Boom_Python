@@ -9,7 +9,7 @@ sound_back = mixer.music.load('./data/sounds/nhacnen.mp3')
 
 FONT = pygame.font.Font('./data/font/prstart.ttf', 15)
 
-S = 40  # pixel per square
+S = 35  # pixel per square
 
 WIDTH, HEIGHT = S*26, S*18
 
